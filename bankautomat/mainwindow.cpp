@@ -7,8 +7,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setStyleSheet("background-color: blue;");
+    this->setStyleSheet("background-image:url(E:/Banksimul projekti/group_5/group5/bankautomat/images/main_background.png)");
     pPinni = new Pinni;
+    //qApp->setStyleSheet("background-image:url(E:/Banksimul projekti/group_5/group5/bankautomat/images/bank_card.png)");
+
 }
 
 MainWindow::~MainWindow()
