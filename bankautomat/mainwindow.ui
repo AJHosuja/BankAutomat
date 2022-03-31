@@ -6,33 +6,37 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>938</width>
-    <height>622</height>
+    <width>950</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>822</width>
-     <height>0</height>
-    </size>
-   </property>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>938</width>
-     <height>20</height>
-    </rect>
-   </property>
+   <widget class="QPushButton" name="avaapin">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>520</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>avaa pin</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tunnus">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>490</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

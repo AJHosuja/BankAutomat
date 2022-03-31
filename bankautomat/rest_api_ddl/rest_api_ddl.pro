@@ -1,7 +1,8 @@
-QT       += core gui
+QT -= gui
 QT +=network
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += gui widgets
+TEMPLATE = lib
+DEFINES += REST_API_DDL_LIBRARY
 
 CONFIG += c++11
 
@@ -10,22 +11,14 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    pinni.cpp
+    rest_api_ddl.cpp
 
 HEADERS += \
-    mainwindow.h \
-    pinni.h
-
-FORMS += \
-    mainwindow.ui \
-    pinni.ui
+    rest_api_ddl_global.h \
+    rest_api_ddl.h
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+unix {
+    target.path = /usr/lib
+}
 !isEmpty(target.path): INSTALLS += target
-
-RESOURCES += \
-    backgroundmain.qrc
