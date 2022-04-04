@@ -1,6 +1,7 @@
 QT -= gui
 QT +=network
-QT += gui widgets
+
+
 TEMPLATE = lib
 DEFINES += REST_API_DDL_LIBRARY
 
