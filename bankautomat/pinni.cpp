@@ -2,6 +2,7 @@
 #include "ui_pinni.h"
 #include <QDebug>
 #include <QMessageBox>
+#include "mainwindow.h"
 Pinni::Pinni(QString tunnus, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Pinni)
@@ -15,75 +16,100 @@ Pinni::Pinni(QString tunnus, QWidget *parent) :
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
     rfid = tunnus;
+
+    pPinDll = new Pin_DLL(this);
+    connect(pPinDll,SIGNAL(sendPinToExe(QString)),
+            this, SLOT(recvPinToDll(QString)));
+    pTimer = new QTimer(this);
+
+
+       connect(pTimer, SIGNAL(timeout()),
+             this, SLOT(timerout()));
+
+       // msec
+       pTimer->start(10000);
+
+
+
 }
 
 
 Pinni::~Pinni()
 {
     delete ui;
+
+    disconnect(pPinDll, SIGNAL(sendPinToExe(QString)),
+               this, SLOT(recvPinToDll(QString)));
+    delete pPinDll;
+    pPinDll = nullptr;
 }
 
-void Pinni::clickHandler(QString i)
+void Pinni::on_B0_clicked()
 {
-    b.append(i);
-    ui->lineEdit->setText(b);
-    if (b.length() == 4){
-        login(rfid, b);
-    }
+    pPinDll->recvB0clicked();
+    pTimer->start(10000);
 }
 
 void Pinni::on_B1_clicked()
 {
-    clickHandler("1");
-
+    pPinDll->recvB1clicked();
+    pTimer->start(10000);
 }
 
 
 void Pinni::on_B2_clicked()
 {
-    clickHandler("2");
+    pPinDll->recvB2clicked();
+    pTimer->start(10000);
 }
 
 
 void Pinni::on_B3_clicked()
 {
-    clickHandler("3");
+    pPinDll->recvB3clicked();
+    pTimer->start(10000);
 }
 
 
 void Pinni::on_B4_clicked()
 {
-    clickHandler("4");
+    pPinDll->recvB4clicked();
+    pTimer->start(10000);
 }
 
 
 void Pinni::on_B5_clicked()
 {
-    clickHandler("5");
+    pPinDll->recvB5clicked();
+    pTimer->start(10000);
 }
 
 
 void Pinni::on_B6_clicked()
 {
-    clickHandler("6");
+    pPinDll->recvB6clicked();
+    pTimer->start(10000);
 }
 
 
 void Pinni::on_B7_clicked()
 {
-    clickHandler("7");
+    pPinDll->recvB7clicked();
+    pTimer->start(10000);
 }
 
 
 void Pinni::on_B8_clicked()
 {
-    clickHandler("8");
+    pPinDll->recvB8clicked();
+    pTimer->start(10000);
 }
 
 
 void Pinni::on_B9_clicked()
 {
-    clickHandler("9");
+    pPinDll->recvB9clicked();
+    pTimer->start(10000);
 }
 
 void Pinni::login(QString rfid, QString pin)
@@ -127,5 +153,22 @@ void Pinni::on_pushButton_2_clicked()
 {
     b.clear();
     ui->lineEdit->setText(b);
+}
+
+void Pinni::recvPinToDll(QString b)
+{
+    qDebug() << "Pin vastaanotettu dll:lästä";
+    login(rfid, b);
+}
+
+void Pinni::timerout()
+{
+    QMessageBox::information(this,"Aikakatkaisu", "Ei tapahtumia aikamääreeseen");
+    MainWindow *mainWindow = new MainWindow();
+        mainWindow->show();
+    qDebug() << "Avataan mainWindow";
+    this->~Pinni();
+
+
 }
 
