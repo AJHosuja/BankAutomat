@@ -29,3 +29,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     backgroundmain.qrc
+
+
+
+win32: LIBS += -L$$PWD/pin_DLL/pin_DLL/build/debug/ -lpin_DLL
+
+INCLUDEPATH += $$PWD/pin_DLL/pin_DLL
+DEPENDPATH += $$PWD/pin_DLL/pin_DLL
