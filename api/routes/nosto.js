@@ -25,7 +25,7 @@ router.post('/', function(request, response)
                         }
                     });
                 }   else{
-                    response.send('tilillä ei katetta');
+                    response.send('ei katetta');
                 }
             }
         });

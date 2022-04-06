@@ -25,7 +25,7 @@ router.post('/', function(request, response)
                     }
                 });
             } else {   
-                response.send('credit_limit');
+                response.send('ei katetta');
             }
         });
     }
