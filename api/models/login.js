@@ -31,7 +31,17 @@ const login = {
         return db.query(
             'UPDATE bank_card SET false_count = 0 WHERE card_numer = ? ',
             [card_number], callback)
-        }
+        },
+    card_id: function  (card_number, callback) {
+        return db.query(
+            'SELECT card_id FROM bank_card WHERE card_numer=?',
+            [card_number], callback)
+            },
+    creditOrDebit: function  (card_id, callback) {
+        return db.query(
+            'SELECT debit_credit FROM bank_account WHERE id_account=?',
+            [card_id], callback)
+            }
 
 };
 
