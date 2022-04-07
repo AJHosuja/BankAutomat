@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var nostodebitRouter = require('./routes/nosto');
+var nostoRouter = require('./routes/nostocredit');
 
 var app = express();
 
@@ -20,6 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/login',loginRouter);
 
 app.use(authenticateToken);
+app.use('/nostodebit', nostodebitRouter);
+app.use('/nostocredit', nostoRouter);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
