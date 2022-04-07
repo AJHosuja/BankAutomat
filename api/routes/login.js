@@ -78,6 +78,30 @@ router.post('/', function(request, response)
 
 });
 
+router.get('/creditCheck',
+function(request, response){
+    if(request.body.rfid){
+        login.card_id(request.body.rfid, function(err, dbResult){
+            if (err){
+                response.json(err);
+            } else{
+                if(dbResult){
+                    var dbresu = dbResult[0].card_id;
+                    login.creditOrDebit(dbResult[0].card_id, function(err, dbResult){
+                        if (err){
+                            response.json(err);
+                        } else{
+                            response.send(dbResult[0].debit_credit);
+                        }
+                    });
+                } else{
+                    response.json(err);
+                }
+            }
+        });
+    }
+});
+
 function generateAccessToken(username) {
     dotenv.config();
     console.log(process.env.MY_TOKEN);
