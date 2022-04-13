@@ -5,7 +5,7 @@ var logger = require('morgan');
 const jwt = require('jsonwebtoken');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var userRouter = require('./routes/user');
 var loginRouter = require('./routes/login');
 var nostodebitRouter = require('./routes/nosto');
 var nostoRouter = require('./routes/nostocredit');
@@ -21,12 +21,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/login',loginRouter);
 
-app.use(authenticateToken);
+//app.use(authenticateToken);
 app.use('/nostodebit', nostodebitRouter);
 app.use('/nostocredit', nostoRouter);
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter); 
 
 
 function authenticateToken(req, res, next) {

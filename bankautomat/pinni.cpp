@@ -172,3 +172,15 @@ void Pinni::timerout()
 
 }
 
+
+void Pinni::on_clear_button_clicked()
+{
+    pPinDll->recvClearclicked();
+}
+
+
+void Pinni::on_Backspace_button_clicked()
+{
+    pPinDll->recvBackspaceclicked();
+}
+

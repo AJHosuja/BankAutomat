@@ -13,11 +13,15 @@ public:
     PinEngine(QObject * parent = nullptr);
     ~PinEngine();
     void clickHandler(QString i);
+    void clearButton();
+    void backspaceButton();
     QString b;
+    QString c;
 
 
 signals:
     void sendPinToInterface(QString);
+    void sendSymbolToInterface(QString);
 
 };
 
