@@ -50,7 +50,13 @@ private slots:
     void timerout();
 
 
+<<<<<<< HEAD
 
+=======
+    void on_clear_button_clicked();
+
+    void on_Backspace_button_clicked();
+>>>>>>> main
 
 private:
     Ui::Pinni *ui;
