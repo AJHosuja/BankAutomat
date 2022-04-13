@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "mainwindow.h"
+#include "kayttoliittyma.h"
 Pinni::Pinni(QString tunnus, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Pinni)
@@ -171,4 +172,6 @@ void Pinni::timerout()
 
 
 }
+
+
 

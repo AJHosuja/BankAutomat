@@ -50,6 +50,8 @@ private slots:
     void timerout();
 
 
+
+
 private:
     Ui::Pinni *ui;
     QString rfid;
