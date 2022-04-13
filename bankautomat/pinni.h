@@ -50,6 +50,10 @@ private slots:
     void timerout();
 
 
+    void on_clear_button_clicked();
+
+    void on_Backspace_button_clicked();
+
 private:
     Ui::Pinni *ui;
     QString rfid;

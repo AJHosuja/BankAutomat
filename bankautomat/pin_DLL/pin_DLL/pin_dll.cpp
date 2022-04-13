@@ -79,10 +79,26 @@ void Pin_DLL::recvB9clicked()
     pPinEngine->clickHandler("9");
 }
 
+void Pin_DLL::recvClearclicked()
+{
+    pPinEngine->clearButton();
+}
+
+void Pin_DLL::recvBackspaceclicked()
+{
+    pPinEngine->backspaceButton();
+}
+
 void Pin_DLL::recvPinToEngine(QString b)
 {
     qDebug() << "Pin vastaanotettu enginestä ";
     emit sendPinToExe(b);
+}
+
+void Pin_DLL::recvSymbolToEngine(QString)
+{
+    qDebug() << "Symbol -tieto vastaanotettu enginestä ";
+    emit sendSymbolToExe();
 }
 
 

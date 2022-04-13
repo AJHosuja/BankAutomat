@@ -20,6 +20,7 @@ private:
     QString b;
 signals:
     void sendPinToExe(QString);
+    void sendSymbolToExe(QString);
 public slots:
     void recvB0clicked();
     void recvB1clicked();
@@ -31,9 +32,12 @@ public slots:
     void recvB7clicked();
     void recvB8clicked();
     void recvB9clicked();
+    void recvClearclicked();
+    void recvBackspaceclicked();
 
 private slots:
     void recvPinToEngine(QString);
+    void recvSymbolToEngine(QString);
 
 
 

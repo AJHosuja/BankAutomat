@@ -94,14 +94,14 @@
      </widget>
     </item>
     <item row="4" column="2">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="Backspace_button">
       <property name="text">
        <string>Backspace</string>
       </property>
      </widget>
     </item>
     <item row="4" column="0">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="clear_button">
       <property name="text">
        <string>Clear</string>
       </property>
