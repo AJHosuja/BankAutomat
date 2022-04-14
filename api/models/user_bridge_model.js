@@ -17,10 +17,10 @@ const user_bridge = {
   delete: function(id, callback) {
     return db.query('delete from user_bridge where user_bridge_id=?', [id], callback);
   },
-  update: function( user_bridge, callback) {
+  update: function(id, user_bridge, callback) {
     return db.query(
       'update user_bridge set user_id=?,id_account=?',
-      [user_bridge.user_id, user_bridge.id_account],
+      [user_bridge.user_id, user_bridge.id_account, id],
       callback
     );
   }

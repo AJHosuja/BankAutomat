@@ -9,6 +9,7 @@ var userRouter = require('./routes/user');
 var loginRouter = require('./routes/login');
 var nostodebitRouter = require('./routes/nosto');
 var nostoRouter = require('./routes/nostocredit');
+var user_bridgeRouter = require('./routes/user_bridge');
 
 var app = express();
 
@@ -27,7 +28,7 @@ app.use('/nostocredit', nostoRouter);
 
 app.use('/', indexRouter);
 app.use('/user', userRouter); 
-
+app.use('/user_bridge', user_bridgeRouter);
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
