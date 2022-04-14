@@ -14,28 +14,47 @@ PinEngine::~PinEngine()
 
 void PinEngine::clickHandler(QString i)
 {
-    c = b.length() * "*");
-    if (b.length() > 0){
-        emit sendSymbolToInterface("*");
+    qDebug() << i;
 
-    }
-    emit sendSymbolToInterface("*");
+
+//    if (i == "10"){
+//        b.clear();
+//        if (b.length() > 0){
+//            emit sendSymbolToInterface(b);
+//        }
+//    }
+
+//    if (i == "11"){
+//        b.chop(1);
+//        if (b.length() > 0){
+//            emit sendSymbolToInterface(b);
+//        }
+//    }
+
+
 
     b.append(i);
+    emit sendSymbolToInterface(b);
     if (b.length() == 4){
+        qDebug() << "Pin lähetetty enginestä";
         emit sendPinToInterface(b);    }
-    qDebug() << "Pin lähetetty enginestä";
+
+
 
 }
 
 void PinEngine::clearButton()
 {
-    b.clear();
+    qDebug() << "Clear tieto enginestä";
+    this->b.clear();
+    emit sendSymbolToInterface(b);
 }
 
 void PinEngine::backspaceButton()
 {
-    b.chop(1);
+    qDebug() << "Backspace tieto enginestä";
+    this->b.chop(1);
+    emit sendSymbolToInterface(b);
 }
 
 

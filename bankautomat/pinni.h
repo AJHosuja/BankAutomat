@@ -47,17 +47,19 @@ private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
     void recvPinToDll(QString);
+    void recvSymbolToDll(QString);
     void timerout();
 
 
-    void on_clear_button_clicked();
+    void on_Clear_clicked();
 
-    void on_Backspace_button_clicked();
+    void on_Backspace_clicked();
 
 private:
     Ui::Pinni *ui;
     QString rfid;
     QString b;
+    QString i;
     QNetworkAccessManager *postManager;
     QNetworkReply *reply;
     QByteArray response_data;

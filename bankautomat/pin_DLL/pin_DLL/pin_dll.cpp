@@ -7,6 +7,9 @@ Pin_DLL::Pin_DLL(QObject * parent) : QObject(parent)
     connect(pPinEngine,SIGNAL(sendPinToInterface(QString)),
             this, SLOT(recvPinToEngine(QString)));
 
+    connect(pPinEngine,SIGNAL(sendSymbolToInterface(QString)),
+            this, SLOT(recvSymbolToEngine(QString)));
+
 }
 
 Pin_DLL::~Pin_DLL()
@@ -14,6 +17,10 @@ Pin_DLL::~Pin_DLL()
     qDebug() << "Pin DLL tuhottu";
     disconnect(pPinEngine,SIGNAL(sendPinToInterface(QString)),
                this,SLOT(recvPinToEngine(QString)));
+
+    disconnect(pPinEngine,SIGNAL(sendSymbolToInterface(QString)),
+               this, SLOT(recvSymbolToEngine(QString)));
+
     delete pPinEngine;
     pPinEngine = nullptr;
 
@@ -82,11 +89,13 @@ void Pin_DLL::recvB9clicked()
 void Pin_DLL::recvClearclicked()
 {
     pPinEngine->clearButton();
+    //pPinEngine->clickHandler("10");
 }
 
 void Pin_DLL::recvBackspaceclicked()
 {
     pPinEngine->backspaceButton();
+    //pPinEngine->clickHandler("11");
 }
 
 void Pin_DLL::recvPinToEngine(QString b)
@@ -95,10 +104,10 @@ void Pin_DLL::recvPinToEngine(QString b)
     emit sendPinToExe(b);
 }
 
-void Pin_DLL::recvSymbolToEngine(QString)
+void Pin_DLL::recvSymbolToEngine(QString b)
 {
     qDebug() << "Symbol -tieto vastaanotettu enginestä ";
-    emit sendSymbolToExe();
+    emit sendSymbolToExe(b);
 }
 
 
