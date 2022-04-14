@@ -18,6 +18,7 @@ public:
 private:
     PinEngine * pPinEngine;
     QString b;
+    QString i;
 signals:
     void sendPinToExe(QString);
     void sendSymbolToExe(QString);
