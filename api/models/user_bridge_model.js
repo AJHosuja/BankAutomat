@@ -25,4 +25,6 @@ const user_bridge = {
     );
   }
 };
+
+
 module.exports = user_bridge;
