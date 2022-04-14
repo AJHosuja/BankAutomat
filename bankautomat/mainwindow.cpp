@@ -17,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
         this->setPalette(palette);
 
 
-
-
-
 }
 
 MainWindow::~MainWindow()
