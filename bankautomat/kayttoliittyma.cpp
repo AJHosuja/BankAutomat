@@ -27,3 +27,4 @@ void Kayttoliittyma::on_kirjauduulos_clicked()
     this->~Kayttoliittyma();
 }
 
+// terve
