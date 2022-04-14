@@ -9,7 +9,11 @@ var userRouter = require('./routes/user');
 var loginRouter = require('./routes/login');
 var nostodebitRouter = require('./routes/nosto');
 var nostoRouter = require('./routes/nostocredit');
+
 var bankAccount = require('./routes/bank_account');
+
+var bank_cardRouter = require('./routes/bank_card');
+
 
 var app = express();
 
@@ -29,6 +33,7 @@ app.use('/bankAccount', bankAccount);
 
 app.use('/', indexRouter);
 app.use('/user', userRouter); 
+app.use('/bank_card', bank_cardRouter);
 
 
 function authenticateToken(req, res, next) {
