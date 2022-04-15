@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "pinni.h"
+#include "kayttoliittyma.h"
 
 #include <QMainWindow>
 
@@ -19,8 +20,11 @@ public:
 private slots:
     void on_avaapin_clicked();
 
+    void on_avaakayt_clicked();
+
 private:
     Ui::MainWindow *ui;
     Pinni *pPinni;
+    Kayttoliittyma *pKayttoliittyma;
 };
 #endif // MAINWINDOW_H

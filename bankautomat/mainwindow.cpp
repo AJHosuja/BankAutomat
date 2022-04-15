@@ -17,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
         this->setPalette(palette);
 
 
-
-
-
 }
 
 MainWindow::~MainWindow()
@@ -39,7 +36,14 @@ void MainWindow::on_avaapin_clicked()
 
 
 
-
 }
 
+
+
+void MainWindow::on_avaakayt_clicked()
+{
+    this->hide();
+    pKayttoliittyma = new Kayttoliittyma;
+    pKayttoliittyma->exec();
+}
 

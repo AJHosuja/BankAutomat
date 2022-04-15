@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "mainwindow.h"
+#include "kayttoliittyma.h"
 Pinni::Pinni(QString tunnus, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Pinni)
@@ -188,10 +189,6 @@ void Pinni::timerout()
 
 }
 
-
-
-
-
 void Pinni::on_Clear_clicked()
 {
     qDebug() << "Clear painettu";
@@ -206,4 +203,5 @@ void Pinni::on_Backspace_clicked()
     pPinDll->recvBackspaceclicked();
     pTimer->start(10000);
 }
+
 
