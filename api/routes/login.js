@@ -78,7 +78,9 @@ router.post('/', function(request, response)
 
 });
 
-router.get('/creditCheck',
+
+
+router.post('/creditCheck',
 function(request, response){
     if(request.body.rfid){
         login.card_id(request.body.rfid, function(err, dbResult){

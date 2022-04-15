@@ -21,6 +21,9 @@ Pinni::Pinni(QString tunnus, QWidget *parent) :
     pPinDll = new Pin_DLL(this);
     connect(pPinDll,SIGNAL(sendPinToExe(QString)),
             this, SLOT(recvPinToDll(QString)));
+
+    connect(pPinDll,SIGNAL(sendSymbolToExe(QString)),
+            this, SLOT(recvSymbolToDll(QString)));
     pTimer = new QTimer(this);
 
 
@@ -41,6 +44,10 @@ Pinni::~Pinni()
 
     disconnect(pPinDll, SIGNAL(sendPinToExe(QString)),
                this, SLOT(recvPinToDll(QString)));
+
+    disconnect(pPinDll,SIGNAL(sendSymbolToExe(QString)),
+               this, SLOT(recvSymbolToDll(QString)));
+
     delete pPinDll;
     pPinDll = nullptr;
 }
@@ -113,6 +120,8 @@ void Pinni::on_B9_clicked()
     pTimer->start(10000);
 }
 
+
+
 void Pinni::login(QString rfid, QString pin)
 {
     QJsonObject jsonObj;
@@ -162,6 +171,13 @@ void Pinni::recvPinToDll(QString b)
     login(rfid, b);
 }
 
+void Pinni::recvSymbolToDll(QString b)
+{
+    qDebug() << "symbol vastaanotettu dll:lästä";
+    ui->lineEdit->setText(b);
+
+}
+
 void Pinni::timerout()
 {
     QMessageBox::information(this,"Aikakatkaisu", "Ei tapahtumia aikamääreeseen");
@@ -173,5 +189,19 @@ void Pinni::timerout()
 
 }
 
+void Pinni::on_Clear_clicked()
+{
+    qDebug() << "Clear painettu";
+    pPinDll->recvClearclicked();
+    pTimer->start(10000);
+}
+
+
+void Pinni::on_Backspace_clicked()
+{
+    qDebug() << "Backspace painettu";
+    pPinDll->recvBackspaceclicked();
+    pTimer->start(10000);
+}
 
 
