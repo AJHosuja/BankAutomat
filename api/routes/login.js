@@ -93,7 +93,7 @@ function(request, response){
                         if (err){
                             response.json(err);
                         } else{
-                            response.send(dbresult);
+                            response.send(dbResult);
                         }
                     });
                 } else{

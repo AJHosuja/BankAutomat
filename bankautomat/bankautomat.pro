@@ -14,6 +14,7 @@ SOURCES += \
     kayttoliittyma.cpp \
     main.cpp \
     mainwindow.cpp \
+    nosto.cpp \
     pinni.cpp \
     saldo.cpp
 
@@ -21,6 +22,7 @@ HEADERS += \
     credit_debit.h \
     kayttoliittyma.h \
     mainwindow.h \
+    nosto.h \
     pinni.h \
     saldo.h
 
@@ -28,6 +30,7 @@ FORMS += \
     credit_debit.ui \
     kayttoliittyma.ui \
     mainwindow.ui \
+    nosto.ui \
     pinni.ui \
     saldo.ui
 

@@ -184,20 +184,33 @@ void Pinni::loginData(QByteArray data)
     pRest_api->restapiL("http://restapigroup5tvt21spo1.herokuapp.com/login/creditCheck", jsonObj);
 }
 
-void Pinni::creditOrDebitData(QByteArray data)
+void Pinni::creditOrDebitData(QByteArray data_1)
 {
-    qDebug() << data;
+    qDebug() << data_1;
+
+    QJsonDocument json_doc = QJsonDocument::fromJson(data_1);
+        QJsonArray json_array = json_doc.array();
+        QString idString;
+        foreach(const QJsonValue &pointer, json_array){
+                QJsonObject json = pointer.toObject();
+                data=(json["debit_credit"].toString());
+                int id=(json["id_account"].toInt());
+                idString = QString::number(id);
+
+            }
+        qDebug() << data;
+        qDebug() << idString;
     if (data=="credit") {
         credit_Debit *pCredit_Debit;
         this->hide();
-        pCredit_Debit = new credit_Debit(tokenv);
+        pCredit_Debit = new credit_Debit(tokenv,idString);
         this->~Pinni();
         pCredit_Debit->exec();
 
     } else if (data=="debit") {
         Kayttoliittyma *pKayttoliittyma;
         this->hide();
-        pKayttoliittyma = new Kayttoliittyma(1, tokenv);
+        pKayttoliittyma = new Kayttoliittyma(1,idString, tokenv);
         this->~Pinni();
         pKayttoliittyma->exec();
 

@@ -13,7 +13,7 @@ class credit_Debit : public QDialog
     Q_OBJECT
 
 public:
-    explicit credit_Debit(QByteArray token,QWidget *parent = nullptr);
+    explicit credit_Debit(QByteArray token,QString idString,QWidget *parent = nullptr);
     ~credit_Debit();
 
 private slots:
@@ -24,6 +24,7 @@ private slots:
 private:
     Ui::credit_Debit *ui;
     QByteArray tokenv;
+    QString id;
 
 };
 

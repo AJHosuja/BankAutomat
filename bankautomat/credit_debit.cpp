@@ -3,7 +3,7 @@
 #include <QDebug>
 
 
-credit_Debit::credit_Debit(QByteArray token, QWidget *parent):
+credit_Debit::credit_Debit(QByteArray token, QString idString, QWidget *parent):
     QDialog(parent),
     ui(new Ui::credit_Debit)
 {
@@ -16,6 +16,7 @@ credit_Debit::credit_Debit(QByteArray token, QWidget *parent):
     this->setPalette(palette);
     qDebug() << "pääsi tänne";
     tokenv=token;
+    id=idString;
 
 }
 
@@ -28,7 +29,7 @@ void credit_Debit::on_Credit_clicked()
 {
     Kayttoliittyma *pKayttoliittyma;
     this->hide();
-    pKayttoliittyma = new Kayttoliittyma(2, tokenv);
+    pKayttoliittyma = new Kayttoliittyma(2,id, tokenv);
     this->~credit_Debit();
     pKayttoliittyma->exec();
 
@@ -39,7 +40,7 @@ void credit_Debit::on_Debit_clicked()
 {
     Kayttoliittyma *pKayttoliittyma;
     this->hide();
-    pKayttoliittyma = new Kayttoliittyma(1, tokenv);
+    pKayttoliittyma = new Kayttoliittyma(1, id,tokenv);
     this->~credit_Debit();
     pKayttoliittyma->exec();
 
