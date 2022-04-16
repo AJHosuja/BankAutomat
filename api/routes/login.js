@@ -93,7 +93,7 @@ function(request, response){
                         if (err){
                             response.json(err);
                         } else{
-                            response.send(dbResult[0].debit_credit);
+                            response.send(dbresult);
                         }
                     });
                 } else{
