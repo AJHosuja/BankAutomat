@@ -51,6 +51,7 @@ saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *pare
 
 
 
+
 }
 
 saldo::~saldo()
