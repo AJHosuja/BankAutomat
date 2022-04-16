@@ -21,9 +21,25 @@ nosto::nosto(QWidget *parent) :
     //const QSize size_1 = QSize(400, 30);
     //ui->muu->setFixedSize(size_1);
 
+    pRest_api = new Rest_api_ddl;
+    connect(pRest_api, SIGNAL(responsedata(QByteArray)),
+            this, SLOT(responseData(QByteArray)));
 }
 
 nosto::~nosto()
 {
     delete ui;
 }
+
+void nosto::on_b1_clicked()
+{
+
+
+    //pRest_api->restapi("http://restapigroup5tvt21spo1.herokuapp.com/login/creditCheck");
+}
+
+void nosto::responseData(QByteArray data)
+{
+
+}
+

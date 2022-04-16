@@ -75,7 +75,7 @@ void Kayttoliittyma::on_naytasaldo_clicked()
 
 void Kayttoliittyma::on_nosto_clicked()
 {
-    nosto *pNosto = new nosto;
+    nosto *pNosto = new nosto();
     this->hide();
     pNosto->exec();
 
