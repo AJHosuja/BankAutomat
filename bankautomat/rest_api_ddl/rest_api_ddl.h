@@ -27,17 +27,17 @@ class REST_API_DDL_EXPORT Rest_api_ddl: public QObject
 {
     Q_OBJECT
 public:
-    void login(QString rfid, QString pin);
-    void nosto(QString cORd, QString id_account, QString amount, QString rfid, QByteArray token);
+    void restapi(QString type, QString url, QJsonObject jsonObj, QByteArray Tokenv);
+    void restapi(QString type, QString url, QByteArray Tokenv);
+    void restapiL(QString url, QJsonObject jsonObj);
 signals:
     QByteArray responsedata(QByteArray);
-    QByteArray nostoResponse(QByteArray);
 
 public slots:
-    void loginSlot(QNetworkReply *reply);
-    void nostoSlot(QNetworkReply *reply);
+    void replySlot(QNetworkReply *reply);
+
 private:
-    QNetworkAccessManager *postManager;
+    QNetworkAccessManager *Manager;
     QNetworkReply *reply;
     QByteArray response_data;
     QString site_url;
