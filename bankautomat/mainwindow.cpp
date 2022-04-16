@@ -40,20 +40,3 @@ void MainWindow::on_avaapin_clicked()
 }
 
 
-
-void MainWindow::on_avaakayt_clicked()
-{
-    /*this->hide();
-    pKayttoliittyma = new Kayttoliittyma;
-    pKayttoliittyma->exec();*/
-}
-
-
-void MainWindow::on_SaldoButton_clicked()
-{
-    this->hide();
-    pSaldo = new saldo(this);
-    pSaldo->exec();
-
-}
-

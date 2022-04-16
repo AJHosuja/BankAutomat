@@ -17,9 +17,14 @@ public:
 
 private slots:
     void on_kirjauduulos_clicked();
+    void on_naytasaldo_clicked();
 
 private:
     Ui::Kayttoliittyma *ui;
+    QByteArray tokenv;
+    int valinta;
+
+
 };
 
 #endif // KAYTTOLIITTYMA_H

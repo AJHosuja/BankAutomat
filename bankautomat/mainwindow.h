@@ -21,10 +21,6 @@ public:
 private slots:
     void on_avaapin_clicked();
 
-    void on_avaakayt_clicked();
-
-    void on_SaldoButton_clicked();
-
 private:
     Ui::MainWindow *ui;
     Pinni *pPinni;
