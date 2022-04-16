@@ -14,6 +14,8 @@
 #include <QTableWidget>
 #include <QStandardItemModel>
 
+#include "rest_api_ddl.h"
+
 namespace Ui {
 class saldo;
 }
@@ -50,6 +52,7 @@ private:
     QTimer *pTimer;
     int valinta;
     QStandardItemModel *model;
+    Rest_api_ddl *pRest_api;
 
 };
 

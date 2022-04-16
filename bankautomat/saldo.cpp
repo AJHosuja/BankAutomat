@@ -37,6 +37,17 @@ saldo::saldo(int creditOrDebit, QByteArray token, QWidget *parent) :
 
 
 
+    QJsonObject jsonObj;
+    jsonObj.insert("card_number", rfid);
+    jsonObj.insert("pin_code", b);
+    pRest_api->restapi("get","http://restapigroup5tvt21spo1.herokuapp.com/transactions/*", Tokenv);
+
+
+    pRest_api = new Rest_api_ddl;
+    connect(pRest_api, SIGNAL(responsedata(QByteArray)),
+            this, SLOT(loginData(QByteArray)));
+
+
 
 
 }
