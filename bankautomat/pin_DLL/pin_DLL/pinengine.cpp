@@ -37,7 +37,10 @@ void PinEngine::clickHandler(QString i)
     emit sendSymbolToInterface(b);
     if (b.length() == 4){
         qDebug() << "Pin lähetetty enginestä";
-        emit sendPinToInterface(b);    }
+        emit sendPinToInterface(b);
+        b.clear();
+        emit sendSymbolToInterface(b);
+    }
 
 
 

@@ -2,7 +2,7 @@
 #include "ui_kayttoliittyma.h"
 #include "mainwindow.h"
 
-Kayttoliittyma::Kayttoliittyma(QWidget *parent) :
+Kayttoliittyma::Kayttoliittyma(int creditOrDebit, QByteArray tokenv, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Kayttoliittyma)
 {
@@ -13,6 +13,16 @@ Kayttoliittyma::Kayttoliittyma(QWidget *parent) :
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
+
+    if (creditOrDebit==1){
+        qDebug() << "debit";
+        qDebug() << tokenv;
+    } else if (creditOrDebit==2){
+        qDebug() << "credit";
+        qDebug() << tokenv;
+    }
+
+
 }
 
 Kayttoliittyma::~Kayttoliittyma()
