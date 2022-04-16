@@ -10,6 +10,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    credit_debit.cpp \
     kayttoliittyma.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -17,12 +18,14 @@ SOURCES += \
     saldo.cpp
 
 HEADERS += \
+    credit_debit.h \
     kayttoliittyma.h \
     mainwindow.h \
     pinni.h \
     saldo.h
 
 FORMS += \
+    credit_debit.ui \
     kayttoliittyma.ui \
     mainwindow.ui \
     pinni.ui \
@@ -42,3 +45,10 @@ win32: LIBS += -L$$PWD/pin_DLL/pin_DLL/build/debug/ -lpin_DLL
 
 INCLUDEPATH += $$PWD/pin_DLL/pin_DLL
 DEPENDPATH += $$PWD/pin_DLL/pin_DLL
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/rest_api_ddl/build/release/ -lrest_api_ddl
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/rest_api_ddl/build/debug/ -lrest_api_ddl
+else:unix: LIBS += -L$$PWD/rest_api_ddl/build/ -lrest_api_ddl
+
+INCLUDEPATH += $$PWD/rest_api_ddl
+DEPENDPATH += $$PWD/rest_api_ddl

@@ -50,6 +50,7 @@ void Rest_api_ddl::restapiL(QString url, QJsonObject jsonObj)
 void Rest_api_ddl::replySlot(QNetworkReply *reply)
 {
     response_data=reply->readAll();
+    //qDebug() << response_data;
     emit responsedata(response_data);
 }
 

@@ -30,6 +30,10 @@ Pinni::Pinni(QString tunnus, QWidget *parent) :
        connect(pTimer, SIGNAL(timeout()),
              this, SLOT(timerout()));
 
+       pRest_api = new Rest_api_ddl;
+       connect(pRest_api, SIGNAL(responsedata(QByteArray)),
+               this, SLOT(loginData(QByteArray)));
+
        // msec
        pTimer->start(10000);
 
@@ -122,34 +126,6 @@ void Pinni::on_B9_clicked()
 
 
 
-void Pinni::login(QString rfid, QString pin)
-{
-    QJsonObject jsonObj;
-    jsonObj.insert("card_number", rfid);
-    jsonObj.insert("pin_code", pin);
-    QString site_url="http://restapigroup5tvt21spo1.herokuapp.com/login";
-    QNetworkRequest request((site_url));
-    postManager = new QNetworkAccessManager();
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    connect(postManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(loginSlot(QNetworkReply*)));
-    reply = postManager->post(request, QJsonDocument(jsonObj).toJson());
-}
-
-void Pinni::loginSlot(QNetworkReply *reply)
-{
-    response_data=reply->readAll();
-    qDebug() << response_data;
-
-    if(response_data == "false"){
-        b.clear();
-        ui->lineEdit->setText(b);
-        QMessageBox::information(this,"Virhe", "Väärä pinkoodi, yritä uudelleen");
-        b.clear();
-    }
-
-
-}
-
 
 void Pinni::on_pushButton_clicked()
 {
@@ -168,7 +144,13 @@ void Pinni::on_pushButton_2_clicked()
 void Pinni::recvPinToDll(QString b)
 {
     qDebug() << "Pin vastaanotettu dll:lästä";
-    login(rfid, b);
+
+
+    QJsonObject jsonObj;
+    jsonObj.insert("card_number", rfid);
+    jsonObj.insert("pin_code", b);
+    pRest_api->restapiL("http://restapigroup5tvt21spo1.herokuapp.com/login", jsonObj);
+
 }
 
 void Pinni::recvSymbolToDll(QString b)
@@ -187,6 +169,39 @@ void Pinni::timerout()
     this->~Pinni();
 
 
+}
+
+void Pinni::loginData(QByteArray data)
+{
+    qDebug() << data;
+    tokenv = data;
+    QJsonObject jsonObj;
+    disconnect(pRest_api, SIGNAL(responsedata(QByteArray)),
+            this, SLOT(loginData(QByteArray)));
+    connect(pRest_api, SIGNAL(responsedata(QByteArray)),
+            this, SLOT(creditOrDebitData(QByteArray)));
+    jsonObj.insert("rfid", rfid);
+    pRest_api->restapiL("http://restapigroup5tvt21spo1.herokuapp.com/login/creditCheck", jsonObj);
+}
+
+void Pinni::creditOrDebitData(QByteArray data)
+{
+    qDebug() << data;
+    if (data=="credit") {
+        credit_Debit *pCredit_Debit;
+        this->hide();
+        pCredit_Debit = new credit_Debit(tokenv);
+        this->~Pinni();
+        pCredit_Debit->exec();
+
+    } else if (data=="debit") {
+        Kayttoliittyma *pKayttoliittyma;
+        this->hide();
+        pKayttoliittyma = new Kayttoliittyma(1, tokenv);
+        this->~Pinni();
+        pKayttoliittyma->exec();
+
+    }
 }
 
 void Pinni::on_Clear_clicked()

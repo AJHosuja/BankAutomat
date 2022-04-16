@@ -12,7 +12,7 @@ class Kayttoliittyma : public QDialog
     Q_OBJECT
 
 public:
-    explicit Kayttoliittyma(QWidget *parent = nullptr);
+    explicit Kayttoliittyma(int creditOrDebit, QByteArray tokenv,QWidget *parent = nullptr);
     ~Kayttoliittyma();
 
 private slots:

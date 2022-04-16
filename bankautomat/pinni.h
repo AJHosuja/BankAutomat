@@ -11,8 +11,10 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>
-
+#include "kayttoliittyma.h"
 #include "pin_dll.h"
+#include "rest_api_ddl.h"
+#include "credit_debit.h"
 
 
 namespace Ui {
@@ -26,7 +28,6 @@ class Pinni : public QDialog
 public:
     explicit Pinni(QString tunnus, QWidget *parent = nullptr);
     ~Pinni();
-    void login(QString rfid, QString pin);
 private:
     void clickHandler(QString i);
     Pin_DLL * pPinDll;
@@ -43,13 +44,13 @@ private slots:
     void on_B7_clicked();
     void on_B8_clicked();
     void on_B9_clicked();
-    void loginSlot(QNetworkReply *reply);
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
     void recvPinToDll(QString);
     void recvSymbolToDll(QString);
     void timerout();
-
+    void loginData(QByteArray data);
+    void creditOrDebitData(QByteArray data);
 
 
     void on_Clear_clicked();
@@ -64,8 +65,9 @@ private:
     QString i;
     QNetworkAccessManager *postManager;
     QNetworkReply *reply;
-    QByteArray response_data;
+    QByteArray tokenv;
     QTimer *pTimer;
+    Rest_api_ddl *pRest_api;
 
 };
 
