@@ -12,6 +12,7 @@
 #include <QTimer>
 #include <QWidget>
 #include <QTableWidget>
+#include <QStandardItemModel>
 
 namespace Ui {
 class saldo;
@@ -22,14 +23,20 @@ class saldo : public QDialog
     Q_OBJECT
 
 public:
-    explicit saldo(QWidget *parent = nullptr);
+    explicit saldo(int creditOrDebit, QByteArray tokenv, QWidget *parent = nullptr);
     ~saldo();
     void login(QString rfid, QString pin);
-    void tilitiedot();
+    void tilitiedotDebit();
+    void tilitiedotCredit();
+
+
 
 private slots:
-    void on_pushButton_loadTable_clicked();
     void transactionSlot(QNetworkReply *reply);
+    void on_kirjauduulos_sadlo_clicked();
+    void timerout();
+
+    void on_PalaaTakaisin_clicked();
 
 private:
     Ui::saldo *ui;
@@ -39,6 +46,10 @@ private:
     QNetworkAccessManager *postManager;
     QNetworkReply *reply;
     QByteArray response_data;
+    QByteArray tokenv;
+    QTimer *pTimer;
+    int valinta;
+    QStandardItemModel *model;
 
 };
 

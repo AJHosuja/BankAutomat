@@ -1,6 +1,7 @@
 #include "kayttoliittyma.h"
 #include "ui_kayttoliittyma.h"
 #include "mainwindow.h"
+#include "saldo.h"
 
 Kayttoliittyma::Kayttoliittyma(int creditOrDebit, QByteArray tokenv, QWidget *parent) :
     QDialog(parent),
@@ -14,6 +15,8 @@ Kayttoliittyma::Kayttoliittyma(int creditOrDebit, QByteArray tokenv, QWidget *pa
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
 
+
+
     if (creditOrDebit==1){
         qDebug() << "debit";
         qDebug() << tokenv;
@@ -21,6 +24,9 @@ Kayttoliittyma::Kayttoliittyma(int creditOrDebit, QByteArray tokenv, QWidget *pa
         qDebug() << "credit";
         qDebug() << tokenv;
     }
+
+
+    valinta = creditOrDebit;
 
 
 }
@@ -36,5 +42,32 @@ void Kayttoliittyma::on_kirjauduulos_clicked()
     mainWindow->show();
     this->~Kayttoliittyma();
 }
+
+
+
+void Kayttoliittyma::on_naytasaldo_clicked()
+{
+    qDebug() << "Näytä saldo painettu";
+
+    this->hide();
+
+    if (valinta==1){
+        qDebug() << "SALDO DEBIT";
+        saldo *pSaldo;
+        pSaldo = new saldo(1, tokenv);
+        pSaldo->exec();
+    } else if (valinta==2){
+        qDebug() << "SALDO CREDIT";
+        saldo *pSaldo;
+        pSaldo = new saldo(2, tokenv);
+        pSaldo->exec();
+    }
+    this->~Kayttoliittyma();
+
+
+
+
+}
+
 
 
