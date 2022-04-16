@@ -3,7 +3,7 @@
 #include "mainwindow.h"
 #include "saldo.h"
 
-Kayttoliittyma::Kayttoliittyma(int creditOrDebit, QByteArray tokenv, QWidget *parent) :
+Kayttoliittyma::Kayttoliittyma(int creditOrDebit,QString idString, QByteArray tokenv, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Kayttoliittyma)
 {
@@ -19,10 +19,12 @@ Kayttoliittyma::Kayttoliittyma(int creditOrDebit, QByteArray tokenv, QWidget *pa
 
     if (creditOrDebit==1){
         qDebug() << "debit";
+        qDebug() << idString;
         qDebug() << tokenv;
     } else if (creditOrDebit==2){
         qDebug() << "credit";
         qDebug() << tokenv;
+        qDebug() << idString;
     }
 
 
@@ -70,4 +72,12 @@ void Kayttoliittyma::on_naytasaldo_clicked()
 }
 
 
+
+void Kayttoliittyma::on_nosto_clicked()
+{
+    nosto *pNosto = new nosto;
+    this->hide();
+    pNosto->exec();
+
+}
 

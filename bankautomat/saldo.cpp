@@ -78,11 +78,11 @@ void saldo::tilitiedotCredit()
 
 void saldo::timerout()
 {
-    QMessageBox::information(this,"Aikakatkaisu", "Ei tapahtumia aikamääreeseen");
+   /* QMessageBox::information(this,"Aikakatkaisu", "Ei tapahtumia aikamääreeseen");
     Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta, tokenv);
     kayttoliittyma->show();
     this->~saldo();
-
+*/
 }
 
 
@@ -184,8 +184,9 @@ void saldo::on_kirjauduulos_sadlo_clicked()
 
 void saldo::on_PalaaTakaisin_clicked()
 {
-    Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta, tokenv);
+    /*Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta, tokenv);
     kayttoliittyma->show();
     this->~saldo();
+    */
 }
 

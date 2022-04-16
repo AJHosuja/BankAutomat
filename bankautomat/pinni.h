@@ -68,6 +68,7 @@ private:
     QByteArray tokenv;
     QTimer *pTimer;
     Rest_api_ddl *pRest_api;
+    QString data;
 
 };
 

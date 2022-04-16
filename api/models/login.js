@@ -39,7 +39,7 @@ const login = {
             },
     creditOrDebit: function  (card_id, callback) {
         return db.query(
-            'SELECT debit_credit FROM bank_account WHERE id_account=?',
+            'SELECT debit_credit, id_account FROM bank_account WHERE id_account=?',
             [card_id], callback)
             }
 
