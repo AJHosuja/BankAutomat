@@ -13,17 +13,20 @@ SOURCES += \
     kayttoliittyma.cpp \
     main.cpp \
     mainwindow.cpp \
-    pinni.cpp
+    pinni.cpp \
+    saldo.cpp
 
 HEADERS += \
     kayttoliittyma.h \
     mainwindow.h \
-    pinni.h
+    pinni.h \
+    saldo.h
 
 FORMS += \
     kayttoliittyma.ui \
     mainwindow.ui \
-    pinni.ui
+    pinni.ui \
+    saldo.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

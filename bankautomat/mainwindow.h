@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 #include "pinni.h"
 #include "kayttoliittyma.h"
+#include "saldo.h"
 
 #include <QMainWindow>
 
@@ -22,9 +23,12 @@ private slots:
 
     void on_avaakayt_clicked();
 
+    void on_SaldoButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Pinni *pPinni;
     Kayttoliittyma *pKayttoliittyma;
+    saldo *pSaldo;
 };
 #endif // MAINWINDOW_H

@@ -11,10 +11,11 @@ var nostodebitRouter = require('./routes/nosto');
 var nostoRouter = require('./routes/nostocredit');
 var user_bridgeRouter = require('./routes/user_bridge');
 
-
 var bankAccount = require('./routes/bank_account');
 
 var bank_cardRouter = require('./routes/bank_card');
+
+var transactionsRouter = require('./routes/transactions');
 
 
 var app = express();
@@ -38,6 +39,8 @@ app.use('/user', userRouter);
 app.use('/user_bridge', user_bridgeRouter);
 
 app.use('/bank_card', bank_cardRouter);
+
+app.use('/transactions', transactionsRouter); 
 
 
 
