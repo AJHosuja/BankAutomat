@@ -3,7 +3,7 @@
 #include "kayttoliittyma.h"
 #include "mainwindow.h"
 
-saldo::saldo(int creditOrDebit, QByteArray token, QWidget *parent) :
+saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::saldo)
 {
@@ -23,7 +23,9 @@ saldo::saldo(int creditOrDebit, QByteArray token, QWidget *parent) :
     //table = new QTableWidget(this);
 
     tokenv=token;
+    qDebug() << tokenv;
     valinta = creditOrDebit;
+    id = idString;
 
     if (creditOrDebit==1){
         qDebug() << "debit";
@@ -35,17 +37,16 @@ saldo::saldo(int creditOrDebit, QByteArray token, QWidget *parent) :
         ui->lineEdit->setText("Credit");
     }
 
-
-
-    QJsonObject jsonObj;
-    jsonObj.insert("card_number", rfid);
-    jsonObj.insert("pin_code", b);
-    pRest_api->restapi("get","http://restapigroup5tvt21spo1.herokuapp.com/transactions/*", Tokenv);
-
-
     pRest_api = new Rest_api_ddl;
     connect(pRest_api, SIGNAL(responsedata(QByteArray)),
-            this, SLOT(loginData(QByteArray)));
+            this, SLOT(transactionSlot(QByteArray)));
+
+    QString url = "http://restapigroup5tvt21spo1.herokuapp.com/transactions/*/" + id;
+    qDebug() << url;
+    pRest_api->restapi("get",url,tokenv);
+
+
+
 
 
 
@@ -89,21 +90,21 @@ void saldo::tilitiedotCredit()
 
 void saldo::timerout()
 {
-   /* QMessageBox::information(this,"Aikakatkaisu", "Ei tapahtumia aikamääreeseen");
-    Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta, tokenv);
+    QMessageBox::information(this,"Aikakatkaisu", "Ei tapahtumia aikamääreeseen");
+    Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta,id, tokenv);
     kayttoliittyma->show();
     this->~saldo();
-*/
+
 }
 
 
 
-void saldo::transactionSlot(QNetworkReply *reply)
+void saldo::transactionSlot(QByteArray response_data)
 {
+       qDebug() << response_data;
+       QStandardItemModel *model = new QStandardItemModel(this);
 
-    QStandardItemModel *model = new QStandardItemModel(this);
 
-    response_data=reply->readAll();
         qDebug() << response_data;
         QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
         QJsonArray json_array = json_doc.array();
@@ -134,7 +135,7 @@ void saldo::transactionSlot(QNetworkReply *reply)
                 id_receiver[x]=(json["id_receiver"].toString());
 
                 //type
-                type[x]=(json["id_receiver"].toString());
+                type[x]=(json["type"].toString());
 
                 //transaction
                 transaction[x]=(json["transaction"].toString());
@@ -195,9 +196,9 @@ void saldo::on_kirjauduulos_sadlo_clicked()
 
 void saldo::on_PalaaTakaisin_clicked()
 {
-    /*Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta, tokenv);
+    Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta,id, tokenv);
     kayttoliittyma->show();
     this->~saldo();
-    */
+
 }
 

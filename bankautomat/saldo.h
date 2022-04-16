@@ -25,7 +25,7 @@ class saldo : public QDialog
     Q_OBJECT
 
 public:
-    explicit saldo(int creditOrDebit, QByteArray tokenv, QWidget *parent = nullptr);
+    explicit saldo(int creditOrDebit,QString idString, QByteArray tokenv, QWidget *parent = nullptr);
     ~saldo();
     void login(QString rfid, QString pin);
     void tilitiedotDebit();
@@ -34,7 +34,7 @@ public:
 
 
 private slots:
-    void transactionSlot(QNetworkReply *reply);
+    void transactionSlot(QByteArray);
     void on_kirjauduulos_sadlo_clicked();
     void timerout();
 
@@ -53,6 +53,7 @@ private:
     int valinta;
     QStandardItemModel *model;
     Rest_api_ddl *pRest_api;
+    QString id;
 
 };
 
