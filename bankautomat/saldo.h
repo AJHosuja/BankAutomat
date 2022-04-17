@@ -28,8 +28,8 @@ public:
     explicit saldo(int creditOrDebit,QString idString, QByteArray tokenv, QWidget *parent = nullptr);
     ~saldo();
     void login(QString rfid, QString pin);
-    void tilitiedotDebit();
-    void tilitiedotCredit();
+
+
 
 
 
@@ -37,7 +37,7 @@ private slots:
     void transactionSlot(QByteArray);
     void on_kirjauduulos_sadlo_clicked();
     void timerout();
-
+    void tilitiedotDebit(QByteArray);
     void on_PalaaTakaisin_clicked();
 
 private:

@@ -30,11 +30,11 @@ saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *pare
     if (creditOrDebit==1){
         qDebug() << "debit";
         qDebug() << tokenv;
-        ui->lineEdit->setText("Debit");
+        //ui->lineEdit->setText("Debit");
     } else if (creditOrDebit==2){
         qDebug() << "credit";
         qDebug() << tokenv;
-        ui->lineEdit->setText("Credit");
+       // ui->lineEdit->setText("Credit");
     }
 
     pRest_api = new Rest_api_ddl;
@@ -42,7 +42,7 @@ saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *pare
             this, SLOT(transactionSlot(QByteArray)));
 
     QString url = "http://restapigroup5tvt21spo1.herokuapp.com/transactions/*/" + id;
-    qDebug() << url;
+    //qDebug() << url;
     pRest_api->restapi("get",url,tokenv);
 
 
@@ -57,37 +57,42 @@ saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *pare
 saldo::~saldo()
 {
     delete ui;
+    disconnect(pRest_api, SIGNAL(responsedata(QByteArray)),
+            this, SLOT(transactionSlot(QByteArray)));
+
+    disconnect(pRest_api, SIGNAL(responsedata(QByteArray)),
+            this, SLOT(tilitiedotDebit(QByteArray)));
 }
 
-void saldo::tilitiedotDebit()
+void saldo::tilitiedotDebit(QByteArray data_debit)
 {
-//    for (int i = 0 ; i < table->rowCount(); i++)
-//    {
-//        QTableWidgetItem *item;
-//        for (int j = 0; J < table->columnCount(); j++)
-//        {
-//            item = new QTableWidgetItem;
+    qDebug() << data_debit;
+    QJsonDocument json_doc2 = QJsonDocument::fromJson(data_debit);
+        QJsonArray json_array2 = json_doc2.array();
+        QString creditLimit;
+        QString debitBalance;
+        QString creditBalance;
+        foreach(const QJsonValue &pointer, json_array2){
+                QJsonObject json = pointer.toObject();
 
-//            if (j == 0)
-//                item->setText("name" + QString::number(i));
-//            if (j == 1)
-//                item->setText("Surname" + QString::number(i));
-//            if (j == 2)
-//                item->setText("Age" + QString::number(i));
-//            if (j == 3)
-//                item->setText("Address" + QString::number(i));
+                int creditLimitNumber=(json["credit_limit"].toInt());
+                creditLimit = QString::number(creditLimitNumber);
 
-//            table->setItem(i, j, item);
+                int debitBalanceNumber=(json["debit_balance"].toInt());
+                debitBalance = QString::number(debitBalanceNumber);
 
-//        }
-//    }
+                int creditBalanceNumber=(json["credit_balance"].toInt());
+                creditBalance = QString::number(creditBalanceNumber);
+
+                }
+        qDebug() << creditLimit;
+        qDebug() << debitBalance;
+        qDebug() << creditBalance;
+        ui->lineEdit->setText(debitBalance+" €");
+        ui->lineEdit_credit->setText(creditLimit + " / " + creditBalance +" €");
 
 }
 
-void saldo::tilitiedotCredit()
-{
-
-}
 
 void saldo::timerout()
 {
@@ -178,7 +183,15 @@ void saldo::transactionSlot(QByteArray response_data)
             ui->tableView->setModel(model);
             ui->tableView->verticalHeader()->setVisible(false);
 
+            disconnect(pRest_api, SIGNAL(responsedata(QByteArray)),
+                    this, SLOT(transactionSlot(QByteArray)));
 
+            connect(pRest_api, SIGNAL(responsedata(QByteArray)),
+                    this, SLOT(tilitiedotDebit(QByteArray)));
+
+            QString url_2 = "http://restapigroup5tvt21spo1.herokuapp.com/bankAccount/" + id;
+            qDebug() << url_2;
+            pRest_api->restapi("get",url_2,tokenv);
 }
 
 
@@ -202,4 +215,6 @@ void saldo::on_PalaaTakaisin_clicked()
     this->~saldo();
 
 }
+
+
 
