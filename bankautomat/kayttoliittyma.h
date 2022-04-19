@@ -24,8 +24,10 @@ private slots:
 
 private:
     Ui::Kayttoliittyma *ui;
-    QByteArray tokenv;
+    QByteArray token;
     int valinta;
+    QString id;
+
 
 
 };
