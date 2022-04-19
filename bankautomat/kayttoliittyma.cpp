@@ -29,6 +29,8 @@ Kayttoliittyma::Kayttoliittyma(int creditOrDebit,QString idString, QByteArray to
 
 
     valinta = creditOrDebit;
+    id = idString;
+    token = tokenv;
 
 
 }
@@ -56,12 +58,12 @@ void Kayttoliittyma::on_naytasaldo_clicked()
     if (valinta==1){
         qDebug() << "SALDO DEBIT";
         saldo *pSaldo;
-        pSaldo = new saldo(1, tokenv);
+        pSaldo = new saldo(1,id,token);
         pSaldo->exec();
     } else if (valinta==2){
         qDebug() << "SALDO CREDIT";
         saldo *pSaldo;
-        pSaldo = new saldo(2, tokenv);
+        pSaldo = new saldo(2,id,token);
         pSaldo->exec();
     }
     this->~Kayttoliittyma();
