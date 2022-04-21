@@ -10,7 +10,6 @@ Pinni::Pinni(QString tunnus, QWidget *parent) :
 {
     ui->setupUi(this);
     qDebug() << tunnus;
-    //this->setStyleSheet("background-image:url(E:/Banksimul projekti/group_5/group5/bankautomat/images/background.png)");
     QPixmap bkgnd(":/image/images/background.png");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
@@ -36,8 +35,23 @@ Pinni::Pinni(QString tunnus, QWidget *parent) :
 
        // msec
        pTimer->start(10000);
+        this->setFixedSize(950,600);
+       ui->lineEdit->setReadOnly(true);
 
 
+       int size = 75;
+       ui->B1->setFixedHeight(size);
+       ui->B2->setFixedHeight(size);
+       ui->B3->setFixedHeight(size);
+       ui->B4->setFixedHeight(size);
+       ui->B5->setFixedHeight(size);
+       ui->B6->setFixedHeight(size);
+       ui->B7->setFixedHeight(size);
+       ui->B8->setFixedHeight(size);
+       ui->B9->setFixedHeight(size);
+       ui->B0->setFixedHeight(size);
+       ui->Clear->setFixedHeight(size);
+       ui->Backspace->setFixedHeight(size);
 
 }
 
@@ -174,6 +188,27 @@ void Pinni::timerout()
 void Pinni::loginData(QByteArray data)
 {
     qDebug() << data;
+    if (data == "false"){
+        QMessageBox *msg = new QMessageBox(this);
+        msg->setText("Pin-koodisi oli virheellinen yritä uudelleen.");
+        msg->setWindowTitle("Väärä pin-koodi");
+        msg->setIcon(QMessageBox::Critical);
+        msg->show();
+    } else if (data == "locked"){
+        QMessageBox *msg = new QMessageBox(this);
+        msg->setText("Yritit liian monta kertaa väärin, tilisi on lukittu. "
+                     "Ota yhteyttä pankkiin avataksesi tilin.");
+        msg->setWindowTitle("Tilisi on lukittu");
+        msg->setIcon(QMessageBox::Critical);
+        msg->show();
+    } else if (data == "tilisi on jo aiemmin lukittu"){
+        QMessageBox *msg = new QMessageBox(this);
+        msg->setText("Tilisi on jo aiemmin lukittu. "
+                     "Ota yhteyttä pankkiin avataksesi tilin.");
+        msg->setWindowTitle("Tilisi on jo aiemmin lukittu");
+        msg->setIcon(QMessageBox::Critical);
+        msg->show();
+    }else {
     tokenv = data;
     QJsonObject jsonObj;
     disconnect(pRest_api, SIGNAL(responsedata(QByteArray)),
@@ -182,6 +217,7 @@ void Pinni::loginData(QByteArray data)
             this, SLOT(creditOrDebitData(QByteArray)));
     jsonObj.insert("rfid", rfid);
     pRest_api->restapiL("http://restapigroup5tvt21spo1.herokuapp.com/login/creditCheck", jsonObj);
+    }
 }
 
 void Pinni::creditOrDebitData(QByteArray data_1)

@@ -17,6 +17,7 @@ credit_Debit::credit_Debit(QByteArray token, QString idString, QWidget *parent):
     qDebug() << "pääsi tänne";
     tokenv=token;
     id=idString;
+    this->setFixedSize(950,600);
 
 }
 

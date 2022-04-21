@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     nosto.cpp \
+    nostomuu.cpp \
     pinni.cpp \
     saldo.cpp \
     tilitapahtumat.cpp
@@ -24,6 +25,7 @@ HEADERS += \
     kayttoliittyma.h \
     mainwindow.h \
     nosto.h \
+    nostomuu.h \
     pinni.h \
     saldo.h \
     tilitapahtumat.h
@@ -33,6 +35,7 @@ FORMS += \
     kayttoliittyma.ui \
     mainwindow.ui \
     nosto.ui \
+    nostomuu.ui \
     pinni.ui \
     saldo.ui \
     tilitapahtumat.ui

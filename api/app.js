@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var loginRouter = require('./routes/login');
 var nostodebitRouter = require('./routes/nosto');
-var nostoRouter = require('./routes/nostocredit');
+var nostoCreditRouter = require('./routes/nostocredit');
 var user_bridgeRouter = require('./routes/user_bridge');
 
 var bankAccount = require('./routes/bank_account');
@@ -30,7 +30,7 @@ app.use('/login',loginRouter);
 
 app.use(authenticateToken);
 app.use('/nostodebit', nostodebitRouter);
-app.use('/nostodebit', nostodebitRouter);
+app.use('/nostoCredit', nostoCreditRouter);
 app.use('/bankAccount', bankAccount);
 
 app.use('/', indexRouter);

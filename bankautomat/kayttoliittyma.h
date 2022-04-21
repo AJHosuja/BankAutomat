@@ -30,8 +30,6 @@ private:
     int valinta;
     QString id;
 
-
-
 };
 
 #endif // KAYTTOLIITTYMA_H

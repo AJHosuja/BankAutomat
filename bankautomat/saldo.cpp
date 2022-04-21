@@ -18,7 +18,7 @@ saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *pare
     pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()),
           this, SLOT(timerout()));
-    pTimer->start(10000);
+    pTimer->start(100000);
 
     //table = new QTableWidget(this);
 
@@ -46,7 +46,10 @@ saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *pare
     pRest_api->restapi("get",url,tokenv);
 
 
+    this->setFixedSize(950,600);
 
+    ui->lineEdit->setReadOnly(true);
+    ui->lineEdit_credit->setReadOnly(true);
 
 
 
@@ -152,6 +155,9 @@ void saldo::transactionSlot(QByteArray response_data)
 
                 //date_time
                 dateTime[x]=(json["date_time"].toString());
+                dateTime[x].replace("T", " ");
+                dateTime[x].replace("Z", " ");
+                dateTime[x].chop(5);
 
 
 
@@ -160,19 +166,27 @@ void saldo::transactionSlot(QByteArray response_data)
             }
             model = new QStandardItemModel(arraySize,6,this);
             QModelIndex index;
-             for (int i = 0; i<arraySize;i++){
-                  index = model->index(i,0,QModelIndex());
+
+             int y = arraySize - 6;
+             int z = 0;
+             qDebug() << arraySize << "arraysize";
+             qDebug() << y << "y int";
+             for (int i = arraySize-1; i>y;i--){
+                 qDebug() << "pääsi tänne ";
+                  index = model->index(z,0,QModelIndex());
                   model->setData(index, idString[i]);
-                  index = model->index(i,1,QModelIndex());
+                  index = model->index(z,1,QModelIndex());
                   model->setData(index, id_receiver[i]);
-                  index = model->index(i,2,QModelIndex());
+                  index = model->index(z,2,QModelIndex());
                   model->setData(index, type[i]);
-                  index = model->index(i,3,QModelIndex());
+                  index = model->index(z,3,QModelIndex());
                   model->setData(index, transaction[i]);
-                  index = model->index(i,4,QModelIndex());
+                  index = model->index(z,4,QModelIndex());
                   model->setData(index, ammount[i]);
-                  index = model->index(i,5,QModelIndex());
+                  index = model->index(z,5,QModelIndex());
                   model->setData(index, dateTime[i]);
+                  z++;
+
             }
             model->setHorizontalHeaderItem(0, new QStandardItem(tr("id_transaction")));
             model->setHorizontalHeaderItem(1, new QStandardItem(tr("id_receiver")));
@@ -180,8 +194,15 @@ void saldo::transactionSlot(QByteArray response_data)
             model->setHorizontalHeaderItem(3, new QStandardItem(tr("transaction")));
             model->setHorizontalHeaderItem(4, new QStandardItem(tr("amount")));
             model->setHorizontalHeaderItem(5, new QStandardItem(tr("date_time")));
+
+            model->setRowCount(5);
+
             ui->tableView->setModel(model);
             ui->tableView->verticalHeader()->setVisible(false);
+            ui->tableView->setColumnWidth(5,162);
+            int height = ui->tableView->height();
+            ui->tableView->setFixedHeight(height);
+            ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
             disconnect(pRest_api, SIGNAL(responsedata(QByteArray)),
                     this, SLOT(transactionSlot(QByteArray)));
@@ -201,7 +222,7 @@ void saldo::transactionSlot(QByteArray response_data)
 void saldo::on_kirjauduulos_sadlo_clicked()
 {
     MainWindow *mainWindow = new MainWindow();
-        mainWindow->show();
+      mainWindow->show();
         this->~saldo();
 
 
