@@ -22,6 +22,8 @@ private slots:
 
     void on_nosto_clicked();
 
+    void on_tilitap_clicked();
+
 private:
     Ui::Kayttoliittyma *ui;
     QByteArray token;

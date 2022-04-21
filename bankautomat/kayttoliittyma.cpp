@@ -2,6 +2,7 @@
 #include "ui_kayttoliittyma.h"
 #include "mainwindow.h"
 #include "saldo.h"
+#include "tilitapahtumat.h"
 
 Kayttoliittyma::Kayttoliittyma(int creditOrDebit,QString idString, QByteArray tokenv, QWidget *parent) :
     QDialog(parent),
@@ -81,5 +82,13 @@ void Kayttoliittyma::on_nosto_clicked()
     this->hide();
     pNosto->exec();
 
+}
+
+
+void Kayttoliittyma::on_tilitap_clicked()
+{
+    Tilitapahtumat *pTilitapahtumat = new Tilitapahtumat(valinta,id,token);
+    this->hide();
+    pTilitapahtumat->exec();
 }
 

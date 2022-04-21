@@ -16,7 +16,8 @@ SOURCES += \
     mainwindow.cpp \
     nosto.cpp \
     pinni.cpp \
-    saldo.cpp
+    saldo.cpp \
+    tilitapahtumat.cpp
 
 HEADERS += \
     credit_debit.h \
@@ -24,7 +25,8 @@ HEADERS += \
     mainwindow.h \
     nosto.h \
     pinni.h \
-    saldo.h
+    saldo.h \
+    tilitapahtumat.h
 
 FORMS += \
     credit_debit.ui \
@@ -32,7 +34,8 @@ FORMS += \
     mainwindow.ui \
     nosto.ui \
     pinni.ui \
-    saldo.ui
+    saldo.ui \
+    tilitapahtumat.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
