@@ -31,6 +31,7 @@ Kayttoliittyma::Kayttoliittyma(int creditOrDebit,QString idString, QByteArray to
     valinta = creditOrDebit;
     id = idString;
     token = tokenv;
+    this->setFixedSize(950,600);
 
 
 }
@@ -77,9 +78,9 @@ void Kayttoliittyma::on_naytasaldo_clicked()
 
 void Kayttoliittyma::on_nosto_clicked()
 {
-    nosto *pNosto = new nosto();
+    nosto *pNosto = new nosto(valinta,id,token);
     this->hide();
-    pNosto->exec();
+    pNosto->show();
 
 }
 

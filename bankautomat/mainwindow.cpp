@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
         QPalette palette;
         palette.setBrush(QPalette::Background, bkgnd);
         this->setPalette(palette);
+        this->setFixedSize(950,600);
+
+
 
 
 }
@@ -32,11 +35,13 @@ void MainWindow::on_avaapin_clicked()
     QString tunnus = ui->tunnus->text();
 
     this->hide();
-    pPinni = new Pinni(tunnus, this);
+    Pinni *pPinni = new Pinni(tunnus, this);
     pPinni->exec();
 
 
 
 }
+
+
 
 

@@ -23,8 +23,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Pinni *pPinni;
-    Kayttoliittyma *pKayttoliittyma;
+
     saldo *pSaldo;
 };
 #endif // MAINWINDOW_H
