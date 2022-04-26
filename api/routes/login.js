@@ -104,6 +104,19 @@ function(request, response){
     }
 });
 
+router.get('/:id?',
+ function(request, response) {
+  if (request.params.id) {
+    login.card_id(request.params.id, function(err, dbResult) {
+        if(dbResult[0]) {
+            response.send(true);
+        } else {
+            response.send(false);
+        }
+    });
+  }
+});
+
 function generateAccessToken(username) {
     dotenv.config();
     console.log(process.env.MY_TOKEN);

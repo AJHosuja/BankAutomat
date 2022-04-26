@@ -3,7 +3,7 @@
 #include "pinni.h"
 #include "kayttoliittyma.h"
 #include "saldo.h"
-
+#include "rest_api_ddl.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -20,10 +20,12 @@ public:
 
 private slots:
     void on_avaapin_clicked();
+    void restApiData(QByteArray data);
 
 private:
     Ui::MainWindow *ui;
-
+    Rest_api_ddl *pRest_api;
     saldo *pSaldo;
+    QString tunnus;
 };
 #endif // MAINWINDOW_H

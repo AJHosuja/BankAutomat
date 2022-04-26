@@ -38,6 +38,7 @@ void Rest_api_ddl::restapi(QString type, QString url, QByteArray Tokenv)
 
 void Rest_api_ddl::restapiL(QString url, QJsonObject jsonObj)
 {
+
     QString site_url=url;
     QNetworkRequest request((site_url));
     Manager = new QNetworkAccessManager();
@@ -45,6 +46,17 @@ void Rest_api_ddl::restapiL(QString url, QJsonObject jsonObj)
     connect(Manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replySlot(QNetworkReply*)));
     reply = Manager->post(request, QJsonDocument(jsonObj).toJson());
 
+
+
+}
+
+void Rest_api_ddl::restapiL(QString url)
+{
+    QString site_url=url;
+    QNetworkRequest request((site_url));
+    Manager = new QNetworkAccessManager();
+    connect(Manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replySlot(QNetworkReply*)));
+    reply = Manager->get(request);
 }
 
 void Rest_api_ddl::replySlot(QNetworkReply *reply)

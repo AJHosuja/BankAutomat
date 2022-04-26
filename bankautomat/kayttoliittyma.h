@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "nosto.h"
+#include "vaihdapin.h"
 
 namespace Ui {
 class Kayttoliittyma;
@@ -23,6 +24,10 @@ private slots:
     void on_nosto_clicked();
 
     void on_tilitap_clicked();
+    void fnameLname(QByteArray data);
+    void on_sulje_clicked();
+    void showTime();
+    void on_vaihda_clicked();
 
 private:
     Ui::Kayttoliittyma *ui;

@@ -34,6 +34,15 @@ Kayttoliittyma::Kayttoliittyma(int creditOrDebit,QString idString, QByteArray to
     token = tokenv;
     this->setFixedSize(950,600);
 
+    Rest_api_ddl *pRest_api = new Rest_api_ddl;
+    connect(pRest_api, SIGNAL(responsedata(QByteArray)),
+            this, SLOT(fnameLname(QByteArray)));
+    QString url = "http://restapigroup5tvt21spo1.herokuapp.com/user/" + id;
+    pRest_api->restapi("get",url,tokenv);
+
+    QTimer *aika = new QTimer(this);
+    connect(aika, SIGNAL(timeout()), this, SLOT(showTime()));
+    aika->start();
 
 }
 
@@ -41,6 +50,33 @@ Kayttoliittyma::~Kayttoliittyma()
 {
     delete ui;
 }
+
+void Kayttoliittyma::showTime()
+{
+        QTime time =QTime::currentTime();
+        QDate date =QDate::currentDate();
+        QString time_text=time.toString("hh : mm : ss");
+        QString date_text=date.toString();
+        ui->time->setText(date_text +"   "+ time_text);
+}
+void Kayttoliittyma::fnameLname(QByteArray data)
+{
+
+    QJsonDocument json_doc = QJsonDocument::fromJson(data);
+        QJsonArray json_array = json_doc.array();
+        QString fName;
+        QString lName;
+        foreach(const QJsonValue &pointer, json_array){
+                QJsonObject json = pointer.toObject();
+                fName=(json["fname"].toString());
+                lName=(json["lname"].toString());
+                }
+        qDebug() << fName;
+        qDebug() << lName;
+        ui->label->setText("Hei "+fName+ " " +lName+ "!");
+
+}
+
 
 void Kayttoliittyma::on_kirjauduulos_clicked()
 {
@@ -91,5 +127,22 @@ void Kayttoliittyma::on_tilitap_clicked()
     Tilitapahtumat *pTilitapahtumat = new Tilitapahtumat(valinta,id,token);
     this->hide();
     pTilitapahtumat->exec();
+}
+
+
+
+void Kayttoliittyma::on_sulje_clicked()
+{
+    this->hide();
+    this->~Kayttoliittyma();
+}
+
+
+
+void Kayttoliittyma::on_vaihda_clicked()
+{
+    vaihdaPin *pvaihdaPin = new vaihdaPin(valinta,id,token);
+    this->hide();
+    pvaihdaPin->exec();
 }
 

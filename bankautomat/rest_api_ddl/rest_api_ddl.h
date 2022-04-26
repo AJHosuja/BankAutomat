@@ -30,6 +30,7 @@ public:
     void restapi(QString type, QString url, QJsonObject jsonObj, QByteArray Tokenv);
     void restapi(QString type, QString url, QByteArray Tokenv);
     void restapiL(QString url, QJsonObject jsonObj);
+    void restapiL(QString url);
 signals:
     QByteArray responsedata(QByteArray);
 
