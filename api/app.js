@@ -16,6 +16,7 @@ var bankAccount = require('./routes/bank_account');
 var bank_cardRouter = require('./routes/bank_card');
 
 var transactionsRouter = require('./routes/transactions');
+var vaihdaPin = require('./routes/vaihdaPin');
 
 
 var app = express();
@@ -32,15 +33,12 @@ app.use(authenticateToken);
 app.use('/nostodebit', nostodebitRouter);
 app.use('/nostoCredit', nostoCreditRouter);
 app.use('/bankAccount', bankAccount);
-
 app.use('/', indexRouter);
 app.use('/user', userRouter); 
-
 app.use('/user_bridge', user_bridgeRouter);
-
 app.use('/bank_card', bank_cardRouter);
-
 app.use('/transactions', transactionsRouter); 
+app.use('/vaihdapin', vaihdaPin); 
 
 
 
