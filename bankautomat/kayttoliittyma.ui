@@ -35,14 +35,19 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>180</y>
+     <y>190</y>
      <width>421</width>
-     <height>201</height>
+     <height>151</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="1">
      <widget class="QPushButton" name="nosto">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Nosto</string>
       </property>
@@ -50,6 +55,11 @@
     </item>
     <item row="0" column="0">
      <widget class="QPushButton" name="naytasaldo">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Näytä saldo</string>
       </property>
@@ -57,6 +67,11 @@
     </item>
     <item row="1" column="1">
      <widget class="QPushButton" name="tilitap">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Tilitapahtumat</string>
       </property>
@@ -64,6 +79,11 @@
     </item>
     <item row="1" column="0">
      <widget class="QPushButton" name="vaihda">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Vaihda PIN-koodi</string>
       </property>

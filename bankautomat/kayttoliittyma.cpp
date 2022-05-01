@@ -2,7 +2,7 @@
 #include "ui_kayttoliittyma.h"
 #include "mainwindow.h"
 #include "saldo.h"
-#include "tilitapahtumat.h"
+
 
 Kayttoliittyma::Kayttoliittyma(int creditOrDebit,QString idString, QByteArray tokenv, QWidget *parent) :
     QDialog(parent),
@@ -44,11 +44,17 @@ Kayttoliittyma::Kayttoliittyma(int creditOrDebit,QString idString, QByteArray to
     connect(aika, SIGNAL(timeout()), this, SLOT(showTime()));
     aika->start();
 
+    QTimer *pTimer = new QTimer(this);
+    connect(pTimer, SIGNAL(timeout()),
+             this, SLOT(timerout()));
+    pTimer->start(30000);
+
 }
 
 Kayttoliittyma::~Kayttoliittyma()
 {
     delete ui;
+    qDebug() << "Käyttöliittymä tuhottu";
 }
 
 void Kayttoliittyma::showTime()
@@ -70,6 +76,15 @@ void Kayttoliittyma::fnameLname(QByteArray data)
                 QJsonObject json = pointer.toObject();
                 fName=(json["fname"].toString());
                 lName=(json["lname"].toString());
+                QStringList list1 = fName.split(' ');
+                    for (int i = 0; i < list1.size(); ++i)
+                        list1[i].replace(0, 1, list1[i][0].toUpper());
+                fName = list1.join(" ");
+
+                QStringList list2 = lName.split(' ');
+                    for (int i = 0; i < list2.size(); ++i)
+                        list2[i].replace(0, 1, list2[i][0].toUpper());
+                lName = list2.join(" ");
                 }
         qDebug() << fName;
         qDebug() << lName;
@@ -97,15 +112,15 @@ void Kayttoliittyma::on_naytasaldo_clicked()
         qDebug() << "SALDO DEBIT";
         saldo *pSaldo;
         pSaldo = new saldo(1,id,token);
+        this->~Kayttoliittyma();
         pSaldo->exec();
     } else if (valinta==2){
         qDebug() << "SALDO CREDIT";
         saldo *pSaldo;
         pSaldo = new saldo(2,id,token);
+        this->~Kayttoliittyma();
         pSaldo->exec();
     }
-    this->~Kayttoliittyma();
-
 
 
 
@@ -117,6 +132,7 @@ void Kayttoliittyma::on_nosto_clicked()
 {
     nosto *pNosto = new nosto(valinta,id,token);
     this->hide();
+    this->~Kayttoliittyma();
     pNosto->show();
 
 }
@@ -126,6 +142,7 @@ void Kayttoliittyma::on_tilitap_clicked()
 {
     Tilitapahtumat *pTilitapahtumat = new Tilitapahtumat(valinta,id,token);
     this->hide();
+    this->~Kayttoliittyma();
     pTilitapahtumat->exec();
 }
 
@@ -143,6 +160,27 @@ void Kayttoliittyma::on_vaihda_clicked()
 {
     vaihdaPin *pvaihdaPin = new vaihdaPin(valinta,id,token);
     this->hide();
-    pvaihdaPin->exec();
+    pvaihdaPin->show();
+    this->~Kayttoliittyma();
+
+}
+
+void Kayttoliittyma::timerout()
+{
+    QMessageBox *msg = new QMessageBox(this);
+    msg->setText("Aikakatkaisu mitään nappia ei painettu. Palataan alkuun.");
+    msg->setWindowTitle("Aikakatkaisu");
+    msg->setIcon(QMessageBox::Critical);
+    msg->setStandardButtons(QMessageBox::Yes);
+    msg->show();
+    QTimer *ppTimer = new QTimer(this);
+    connect(ppTimer, SIGNAL(timeout()), msg, SLOT(close()));
+    ppTimer->start(10000);
+    if(msg->exec() == QMessageBox::Yes){
+        MainWindow *mainWindow = new MainWindow();
+        mainWindow->show();
+        this->~Kayttoliittyma();
+    }
+
 }
 

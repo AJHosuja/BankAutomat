@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "nosto.h"
 #include "vaihdapin.h"
+#include "tilitapahtumat.h"
 
 namespace Ui {
 class Kayttoliittyma;
@@ -28,6 +29,7 @@ private slots:
     void on_sulje_clicked();
     void showTime();
     void on_vaihda_clicked();
+    void timerout();
 
 private:
     Ui::Kayttoliittyma *ui;

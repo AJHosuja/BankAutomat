@@ -151,7 +151,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Clear</string>
+       <string>Tyhjennä</string>
       </property>
      </widget>
     </item>
@@ -163,7 +163,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Backspace</string>
+       <string>Pyyhi</string>
       </property>
      </widget>
     </item>
