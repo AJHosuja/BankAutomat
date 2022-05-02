@@ -25,7 +25,7 @@ Pinni::Pinni(QString tunnus, QWidget *parent) :
             this, SLOT(recvSymbolToDll(QString)));
     pTimer = new QTimer(this);
 
-
+    setMouseTracking(true);
        connect(pTimer, SIGNAL(timeout()),
              this, SLOT(timerout()));
 
@@ -68,6 +68,12 @@ Pinni::~Pinni()
 
     delete pPinDll;
     pPinDll = nullptr;
+}
+
+void Pinni::mouseMoveEvent(QMouseEvent *event)
+{
+    qDebug() << "mouse tracking pinni";
+    pTimer->start(10000);
 }
 
 void Pinni::on_B0_clicked()
@@ -176,12 +182,18 @@ void Pinni::recvSymbolToDll(QString b)
 
 void Pinni::timerout()
 {
-    QMessageBox::information(this,"Aikakatkaisu", "Ei tapahtumia aikamääreeseen");
-    MainWindow *mainWindow = new MainWindow();
-        mainWindow->show();
-    qDebug() << "Avataan mainWindow";
-    this->~Pinni();
-
+    QMessageBox *msg = new QMessageBox(this);
+    msg->setText("Aikakatkaisu mitään nappia ei painettu. Palataan alkuun.");
+    msg->setWindowTitle("Aikakatkaisu");
+    msg->setIcon(QMessageBox::Critical);
+    msg->setStandardButtons(QMessageBox::Yes);
+    msg->show();
+    QTimer *ppTimer = new QTimer(this);
+    connect(ppTimer, SIGNAL(timeout()), msg, SLOT(close()));
+    ppTimer->start(10000);
+    if(msg->exec() == QMessageBox::Yes){
+        this->~Pinni();
+    }
 
 }
 

@@ -2,7 +2,7 @@
 #define NOSTOMUU_H
 
 #include <QDialog>
-
+#include "nosto.h"
 namespace Ui {
 class nostoMuu;
 }
@@ -48,6 +48,8 @@ private slots:
     void on_pyyhi_clicked();
 
     void timerout();
+protected:
+    virtual void mouseMoveEvent(QMouseEvent *event) override;
 
 signals:
     QString nostoSumma(QString);
@@ -59,6 +61,7 @@ private:
     int valinta;
     QString id;
     QTimer *pTimer;
+    nosto *pNosto;
 };
 
 #endif // NOSTOMUU_H

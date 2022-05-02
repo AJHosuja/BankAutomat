@@ -7,7 +7,7 @@ rfid_engine::rfid_engine()
     qDebug()<<"Engine constructor!";
     serialPort = new QSerialPort;
 
-    serialPort->setPortName("COM5");
+    serialPort->setPortName("COM3");
     serialPort->setParity(QSerialPort::NoParity);
     serialPort->setBaudRate(QSerialPort::Baud9600, QSerialPort::AllDirections);
     serialPort->setStopBits(QSerialPort::OneStop);

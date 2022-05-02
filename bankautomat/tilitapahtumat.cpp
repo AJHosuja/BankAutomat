@@ -54,6 +54,14 @@ Tilitapahtumat::Tilitapahtumat(int creditOrDebit,QString idString, QByteArray to
     ui->lineEdit->setReadOnly(true);
    // ui->lineEdit_credit->setReadOnly(true);
 
+    if (valinta == 1){
+        ui->lineEdit_2->setFixedSize(0,0);
+        ui->label_3->setFixedSize(0,0);
+        ui->lineEdit->setFixedWidth(100);
+    }
+
+    setMouseTracking(true);
+
 }
 
 Tilitapahtumat::~Tilitapahtumat()
@@ -292,7 +300,7 @@ void Tilitapahtumat::on_edelliset10_clicked()
 
     int array = arraykoko-arraykoko-arraykoko;
     qDebug() << array << " array";
-    pTimer->start(30000);
+    pTimer->start(10000);
     connect(pRest_api, SIGNAL(responsedata(QByteArray)),
             this, SLOT(transactionSlot2(QByteArray)));
     response_data = response_data2;
@@ -310,7 +318,7 @@ void Tilitapahtumat::on_edelliset10_clicked()
 
 void Tilitapahtumat::on_seuraavat10_clicked()
 {
-    pTimer->start(30000);
+    pTimer->start(10000);
     connect(pRest_api, SIGNAL(responsedata(QByteArray)),
             this, SLOT(transactionSlot2(QByteArray)));
     response_data = response_data2;
@@ -322,3 +330,7 @@ void Tilitapahtumat::on_seuraavat10_clicked()
     qDebug() << "seuraavat 10 painettu";
 }
 
+void Tilitapahtumat::mouseMoveEvent(QMouseEvent *e){
+    qDebug() << "mouse tracking tilitapahtumat";
+    pTimer->start(10000);
+}

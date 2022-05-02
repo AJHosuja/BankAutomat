@@ -3,7 +3,7 @@
 #include "kayttoliittyma.h"
 #include "mainwindow.h"
 
-saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *parent) :
+saldo::saldo(int creditOrDebit,QString idString, QString fName, QString lName, QByteArray token, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::saldo)
 {
@@ -18,12 +18,12 @@ saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *pare
     pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()),
           this, SLOT(timerout()));
-    pTimer->start(100000);
+    pTimer->start(10000);
 
     //table = new QTableWidget(this);
 
+
     tokenv=token;
-    qDebug() << tokenv;
     valinta = creditOrDebit;
     id = idString;
 
@@ -51,9 +51,16 @@ saldo::saldo(int creditOrDebit,QString idString, QByteArray token, QWidget *pare
     ui->lineEdit->setReadOnly(true);
     ui->lineEdit_credit->setReadOnly(true);
 
+    qDebug() << fName + +" " +lName;
 
+    ui->label_omistaja->setText("Hei! "+fName +" " +lName);
 
+    if (valinta == 1){
+        ui->lineEdit_credit->setFixedSize(0,0);
+        ui->label_2->setFixedSize(0,0);
+    }
 
+    setMouseTracking(true);
 
 }
 
@@ -77,23 +84,23 @@ void saldo::tilitiedotDebit(QByteArray data_debit)
         QString creditBalance;
         foreach(const QJsonValue &pointer, json_array2){
                 QJsonObject json = pointer.toObject();
-
+                if (valinta==2){
                 int creditLimitNumber=(json["credit_limit"].toInt());
                 creditLimit = QString::number(creditLimitNumber);
-
+                int creditBalanceNumber=(json["credit_balance"].toInt());
+                creditBalance = QString::number(creditBalanceNumber);
+                }
                 int debitBalanceNumber=(json["debit_balance"].toInt());
                 debitBalance = QString::number(debitBalanceNumber);
 
-                int creditBalanceNumber=(json["credit_balance"].toInt());
-                creditBalance = QString::number(creditBalanceNumber);
+
 
                 }
-        qDebug() << creditLimit;
-        qDebug() << debitBalance;
-        qDebug() << creditBalance;
-        ui->lineEdit->setText(debitBalance+" €");
-        ui->lineEdit_credit->setText(creditLimit + " / " + creditBalance +" €");
+        if (valinta==2){
 
+        ui->lineEdit_credit->setText(creditLimit + " / " + creditBalance +" €");
+        }
+        ui->lineEdit->setText(debitBalance+" €");
 }
 
 
@@ -237,5 +244,9 @@ void saldo::on_PalaaTakaisin_clicked()
 
 }
 
+void saldo::mouseMoveEvent(QMouseEvent *e){
 
+    qDebug() << "mouse tracking saldo";
+    pTimer->start(10000);
+}
 

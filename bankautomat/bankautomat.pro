@@ -1,5 +1,6 @@
 QT       += core gui
 QT +=network
+QT += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -64,3 +65,9 @@ else:unix: LIBS += -L$$PWD/rest_api_ddl/build/ -lrest_api_ddl
 
 INCLUDEPATH += $$PWD/rest_api_ddl
 DEPENDPATH += $$PWD/rest_api_ddl
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/Rfid_Interface/build/release/ -lRfid_Interface
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/Rfid_Interface/build/debug/ -lRfid_Interface
+
+INCLUDEPATH += $$PWD/Rfid_Interface
+DEPENDPATH += $$PWD/Rfid_Interface

@@ -16,7 +16,7 @@ Kayttoliittyma::Kayttoliittyma(int creditOrDebit,QString idString, QByteArray to
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
 
-
+    setMouseTracking(true);
 
     if (creditOrDebit==1){
         qDebug() << "debit";
@@ -44,7 +44,7 @@ Kayttoliittyma::Kayttoliittyma(int creditOrDebit,QString idString, QByteArray to
     connect(aika, SIGNAL(timeout()), this, SLOT(showTime()));
     aika->start();
 
-    QTimer *pTimer = new QTimer(this);
+    pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()),
              this, SLOT(timerout()));
     pTimer->start(30000);
@@ -70,8 +70,7 @@ void Kayttoliittyma::fnameLname(QByteArray data)
 
     QJsonDocument json_doc = QJsonDocument::fromJson(data);
         QJsonArray json_array = json_doc.array();
-        QString fName;
-        QString lName;
+
         foreach(const QJsonValue &pointer, json_array){
                 QJsonObject json = pointer.toObject();
                 fName=(json["fname"].toString());
@@ -95,8 +94,7 @@ void Kayttoliittyma::fnameLname(QByteArray data)
 
 void Kayttoliittyma::on_kirjauduulos_clicked()
 {
-    MainWindow *mainWindow = new MainWindow();
-    mainWindow->show();
+
     this->~Kayttoliittyma();
 }
 
@@ -111,13 +109,13 @@ void Kayttoliittyma::on_naytasaldo_clicked()
     if (valinta==1){
         qDebug() << "SALDO DEBIT";
         saldo *pSaldo;
-        pSaldo = new saldo(1,id,token);
+        pSaldo = new saldo(1,id,fName, lName,token);
         this->~Kayttoliittyma();
         pSaldo->exec();
     } else if (valinta==2){
         qDebug() << "SALDO CREDIT";
         saldo *pSaldo;
-        pSaldo = new saldo(2,id,token);
+        pSaldo = new saldo(2,id, fName, lName,token);
         this->~Kayttoliittyma();
         pSaldo->exec();
     }
@@ -177,10 +175,11 @@ void Kayttoliittyma::timerout()
     connect(ppTimer, SIGNAL(timeout()), msg, SLOT(close()));
     ppTimer->start(10000);
     if(msg->exec() == QMessageBox::Yes){
-        MainWindow *mainWindow = new MainWindow();
-        mainWindow->show();
         this->~Kayttoliittyma();
     }
 
 }
 
+void Kayttoliittyma::mouseMoveEvent(QMouseEvent *e){
+    pTimer->start(30000);
+}

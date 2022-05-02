@@ -35,6 +35,8 @@ nostoMuu::nostoMuu(int creditOrDebit,QString idString, QByteArray tokenv,QWidget
              this, SLOT(timerout()));
     pTimer->start(10000);
 
+    setMouseTracking(true);
+
 }
 
 nostoMuu::~nostoMuu()
@@ -142,7 +144,7 @@ void nostoMuu::on_nosta_clicked()
                                   ,QMessageBox::Yes | QMessageBox::No );
             if (reply == QMessageBox::Yes){
 
-                nosto *pNosto = new nosto(valinta, id, token);
+                pNosto = new nosto(valinta, id, token);
                 this->~nostoMuu();
                 pNosto->show();
                 pNosto->nostodebit(summa);
@@ -152,7 +154,7 @@ void nostoMuu::on_nosta_clicked()
                                   ,QMessageBox::Yes | QMessageBox::No );
             if (reply == QMessageBox::Yes){
                 this->hide();
-                nosto *pNosto = new nosto(valinta, id, token);
+                pNosto = new nosto(valinta, id, token);
                 pNosto->show();
                 pNosto->nostocredit(summa);
                 this->~nostoMuu();
@@ -178,9 +180,10 @@ void nostoMuu::on_nosta_clicked()
 
 void nostoMuu::on_takaisin_clicked()
 {
-    this->~nostoMuu();
-    nosto *pNosto = new nosto(valinta, id, token);
+    this->hide();
+    pNosto = new nosto(valinta, id, token);
     pNosto->show();
+    this->~nostoMuu();
 }
 
 
@@ -211,8 +214,14 @@ void nostoMuu::timerout()
     connect(ppTimer, SIGNAL(timeout()), msg, SLOT(close()));
     ppTimer->start(10000);
     if(msg->exec() == QMessageBox::Yes){
-        this->~nostoMuu();
-        nosto *pNosto = new nosto(valinta, id, token);
+        this->hide();
+        pNosto = new nosto(valinta, id, token);
         pNosto->show();
+        this->~nostoMuu();
     }
+}
+
+void nostoMuu::mouseMoveEvent(QMouseEvent *e){
+    qDebug() << "mouse tracking nosto muu";
+    pTimer->start(10000);
 }

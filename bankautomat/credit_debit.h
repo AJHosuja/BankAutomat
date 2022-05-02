@@ -20,11 +20,17 @@ private slots:
     void on_Credit_clicked();
 
     void on_Debit_clicked();
+    void timerout();
+
+protected:
+    virtual void mouseMoveEvent(QMouseEvent *event) override;
+
 
 private:
     Ui::credit_Debit *ui;
     QByteArray tokenv;
     QString id;
+    QTimer *pTimer;
 
 };
 

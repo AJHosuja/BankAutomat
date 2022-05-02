@@ -21,6 +21,8 @@ nosto::nosto(int creditOrDebit,QString idString, QByteArray tokenv,QWidget *pare
     ui->b5->setFixedSize(size);
     ui->b6->setFixedSize(size);
 
+    setMouseTracking(true);
+
     pRest_api = new Rest_api_ddl;
     connect(pRest_api, SIGNAL(responsedata(QByteArray)),
             this, SLOT(responseData(QByteArray)));
@@ -223,4 +225,8 @@ void nosto::timerout()
 
 }
 
+void nosto::mouseMoveEvent(QMouseEvent *e){
+    qDebug() << "mouse tracking nosto";
+    pTimer->start(10000);
+}
 
