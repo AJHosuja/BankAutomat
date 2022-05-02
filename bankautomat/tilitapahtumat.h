@@ -13,7 +13,7 @@
 #include <QWidget>
 #include <QTableWidget>
 #include <QStandardItemModel>
-
+#include "kayttoliittyma.h"
 #include "rest_api_ddl.h"
 
 namespace Ui {
@@ -49,7 +49,7 @@ private:
     QByteArray tokenv;
     QString id;
     int valinta;
-    int edelliset;
+    int arraykoko;
     int seuraavat;
     int maara=0;
     QByteArray data2;

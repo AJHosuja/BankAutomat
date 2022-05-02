@@ -47,6 +47,8 @@ private slots:
 
     void on_pyyhi_clicked();
 
+    void timerout();
+
 signals:
     QString nostoSumma(QString);
 
@@ -56,6 +58,7 @@ private:
     QByteArray token;
     int valinta;
     QString id;
+    QTimer *pTimer;
 };
 
 #endif // NOSTOMUU_H

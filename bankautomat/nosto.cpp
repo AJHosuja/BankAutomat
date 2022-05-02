@@ -34,7 +34,7 @@ nosto::nosto(int creditOrDebit,QString idString, QByteArray tokenv,QWidget *pare
     connect(pTimer, SIGNAL(timeout()),
              this, SLOT(timerout()));
     pTimer->start(10000);
-
+    qDebug() << "luotiin nosto";
 
 }
 
@@ -204,11 +204,22 @@ void nosto::kysymyshandlerDebit(QString ammount)
 
 void nosto::timerout()
 {
-    QMessageBox::information(this,"Aikakatkaisu", "Ei tapahtumia aikamääreeseen");
 
-    Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta,id, token);
-    kayttoliittyma->show();
-    this->~nosto();
+    QMessageBox *msg = new QMessageBox(this);
+    msg->setText("Aikakatkaisu. Mitään nappia ei painettu. Palataan käyttöliittymään.");
+    msg->setWindowTitle("Aikakatkaisu");
+    msg->setIcon(QMessageBox::Critical);
+    msg->setStandardButtons(QMessageBox::Yes);
+    msg->show();
+    QTimer *ppTimer = new QTimer(this);
+    connect(ppTimer, SIGNAL(timeout()), msg, SLOT(close()));
+    ppTimer->start(10000);
+    if(msg->exec() == QMessageBox::Yes){
+        Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta,id, token);
+        kayttoliittyma->show();
+        this->~nosto();
+    }
+
 
 }
 

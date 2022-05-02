@@ -34,7 +34,7 @@ public:
 signals:
     QByteArray responsedata(QByteArray);
 
-public slots:
+private slots:
     void replySlot(QNetworkReply *reply);
 
 private:

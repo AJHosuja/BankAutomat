@@ -1,6 +1,6 @@
 #include "tilitapahtumat.h"
 #include "ui_tilitapahtumat.h"
-#include "kayttoliittyma.h"
+
 
 Tilitapahtumat::Tilitapahtumat(int creditOrDebit,QString idString, QByteArray token, QWidget *parent) :
     QDialog(parent),
@@ -21,7 +21,7 @@ Tilitapahtumat::Tilitapahtumat(int creditOrDebit,QString idString, QByteArray to
     pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()),
           this, SLOT(timerout()));
-    pTimer->start(100000);
+    pTimer->start(10000);
 
     //table = new QTableWidget(this);
 
@@ -59,7 +59,7 @@ Tilitapahtumat::Tilitapahtumat(int creditOrDebit,QString idString, QByteArray to
 Tilitapahtumat::~Tilitapahtumat()
 {
     delete ui;
-    delete model;
+
 }
 
 
@@ -67,22 +67,25 @@ Tilitapahtumat::~Tilitapahtumat()
 
 void Tilitapahtumat::on_suljetilita_clicked()
 {
+    qDebug() << "sulje painettu";
     Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta,id, tokenv);
-    kayttoliittyma->show();
+    this->hide();
     this->~Tilitapahtumat();
+    kayttoliittyma->exec();
+
 }
 
 void Tilitapahtumat::transactionSlot(QByteArray response_data)
 {
-    qDebug() << response_data;
+    //qDebug() << response_data;
     response_data2 = response_data;
     QStandardItemModel *model = new QStandardItemModel(this);
 
 
-     qDebug() << response_data;
+     //qDebug() << response_data;
      QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
      QJsonArray json_array = json_doc.array();
-     qDebug() << json_array;
+     //qDebug() << json_array;
      int arraySize = json_array.size();
      int x = 0;
 
@@ -131,7 +134,7 @@ void Tilitapahtumat::transactionSlot(QByteArray response_data)
          }
          model = new QStandardItemModel(arraySize,6,this);
          QModelIndex index;
-
+          arraykoko = arraySize;
           int y = arraySize - 11 + maara;
           if(arraySize - 1 == y){
               y = arraySize - 11;
@@ -153,7 +156,31 @@ void Tilitapahtumat::transactionSlot(QByteArray response_data)
           qDebug() << arraySize << "arraysize";
           qDebug() << y << "y int";
           qDebug() << i << "i int";
+          int arraykaannetty = arraySize-arraySize-arraySize;
+          int i3 = maara-maara-maara;
 
+          i3 = arraySize-i3-1;
+          qDebug() << i3-1;
+          if (maara-10 < arraykaannetty){
+              qDebug() << "nyt pittäis tää";
+              qDebug() << i3 <<"i3";
+              qDebug() << arraykaannetty <<"arraykaannetty";
+              for (int i = i3; i>-1;i--){
+                   index = model->index(z,0,QModelIndex());
+                   model->setData(index, idString[i]);
+                   index = model->index(z,1,QModelIndex());
+                   model->setData(index, id_receiver[i]);
+                   index = model->index(z,2,QModelIndex());
+                   model->setData(index, type[i]);
+                   index = model->index(z,3,QModelIndex());
+                   model->setData(index, transaction[i]);
+                   index = model->index(z,4,QModelIndex());
+                   model->setData(index, ammount[i]);
+                   index = model->index(z,5,QModelIndex());
+                   model->setData(index, dateTime[i]);
+                   z++;
+                      }
+          } else {
 
               for (int i = i2; i>y;i--){
                    index = model->index(z,0,QModelIndex());
@@ -170,7 +197,7 @@ void Tilitapahtumat::transactionSlot(QByteArray response_data)
                    model->setData(index, dateTime[i]);
                    z++;
                       }
-
+        }
 
 
 
@@ -213,16 +240,26 @@ void Tilitapahtumat::transactionSlot2(QByteArray response_data)
 
 void Tilitapahtumat::timerout()
 {
-    QMessageBox::information(this,"Aikakatkaisu", "Ei tapahtumia aikamääreeseen");
-
+    QMessageBox *msg = new QMessageBox(this);
+    msg->setText("Aikakatkaisu mitään nappia ei painettu. Palataan kättöliittymään.");
+    msg->setWindowTitle("Aikakatkaisu");
+    msg->setIcon(QMessageBox::Critical);
+    msg->setStandardButtons(QMessageBox::Yes);
+    msg->show();
+    QTimer *ppTimer = new QTimer(this);
+    connect(ppTimer, SIGNAL(timeout()), msg, SLOT(close()));
+    ppTimer->start(10000);
+    if(msg->exec() == QMessageBox::Yes){
     Kayttoliittyma *kayttoliittyma = new Kayttoliittyma(valinta,id, tokenv);
-    kayttoliittyma->show();
+    this->hide();
     this->~Tilitapahtumat();
+    kayttoliittyma->exec();
+    }
 }
 
 void Tilitapahtumat::tilitiedotDebit(QByteArray data_debit)
 {
-    qDebug() << data_debit;
+    //qDebug() << data_debit;
     QJsonDocument json_doc2 = QJsonDocument::fromJson(data_debit);
         QJsonArray json_array2 = json_doc2.array();
         QString creditLimit;
@@ -241,35 +278,45 @@ void Tilitapahtumat::tilitiedotDebit(QByteArray data_debit)
                 creditBalance = QString::number(creditBalanceNumber);
 
                 }
-        qDebug() << creditLimit;
-        qDebug() << debitBalance;
-        qDebug() << creditBalance;
+        //qDebug() << creditLimit;
+        //qDebug() << debitBalance;
+        //qDebug() << creditBalance;
         ui->lineEdit->setText(debitBalance+" €");
+        ui->lineEdit_2->setText(creditBalance + " € / " + creditLimit + " €");
 }
 
 
 
 void Tilitapahtumat::on_edelliset10_clicked()
 {
+
+    int array = arraykoko-arraykoko-arraykoko;
+    qDebug() << array << " array";
+    pTimer->start(30000);
     connect(pRest_api, SIGNAL(responsedata(QByteArray)),
             this, SLOT(transactionSlot2(QByteArray)));
-
-
     response_data = response_data2;
-    maara = -10;
+    if (array < maara-10){
+    maara = maara-10;
+    }
     //model->clearItemData(QModelIndex());
     this->transactionSlot2(response_data);
     qDebug() << "edelliset 10 painettu";
+    qDebug() << array << " array koko";
+    qDebug() << maara << " maara";
 
 }
 
 
 void Tilitapahtumat::on_seuraavat10_clicked()
 {
+    pTimer->start(30000);
     connect(pRest_api, SIGNAL(responsedata(QByteArray)),
             this, SLOT(transactionSlot2(QByteArray)));
     response_data = response_data2;
-    maara = +10;
+    if (maara < -9){
+    maara = maara +10;
+    }
     //model->clearItemData(QModelIndex());
     this->transactionSlot2(response_data);
     qDebug() << "seuraavat 10 painettu";

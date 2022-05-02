@@ -15,7 +15,7 @@ router.post('/', function(request, response)
                 response.send(dberr);
             } else{
                 console.log(dbresult[0].debit_balance);
-                if (dbresult[0].debit_balance-request.body.amount > 0){
+                if (dbresult[0].debit_balance-request.body.amount > -1){
                     nosto.callnosto(request.body, function(dberr, dbresult) {
                         if(dberr){
                             response.send(false)
