@@ -23,6 +23,8 @@ vaihdaPin::vaihdaPin(int creditOrDebit,QString idString, QByteArray tokenv,QWidg
              this, SLOT(timerout()));
     pTimer->start(10000);
 
+    setMouseTracking(true);
+
 }
 
 vaihdaPin::~vaihdaPin()
@@ -217,3 +219,7 @@ void vaihdaPin::on_tyhjenna_clicked()
     ui->lineEdit->setText(clickString);
 }
 
+void vaihdaPin::mouseMoveEvent(QMouseEvent *e){
+    qDebug() << "mouse tracking vaihdaPin";
+    pTimer->start(10000);
+}

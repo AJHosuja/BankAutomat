@@ -25,13 +25,14 @@ class saldo : public QDialog
     Q_OBJECT
 
 public:
-    explicit saldo(int creditOrDebit,QString idString, QByteArray tokenv, QWidget *parent = nullptr);
+    explicit saldo(int creditOrDebit,QString idString, QString fName, QString lName, QByteArray tokenv, QWidget *parent = nullptr);
     ~saldo();
     void login(QString rfid, QString pin);
 
 
 
-
+protected:
+    virtual void mouseMoveEvent(QMouseEvent *event) override;
 
 private slots:
     void transactionSlot(QByteArray);

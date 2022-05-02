@@ -43,6 +43,8 @@ private slots:
     void on_edelliset10_clicked();
 
     void on_seuraavat10_clicked();
+protected:
+    virtual void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     Ui::Tilitapahtumat *ui;

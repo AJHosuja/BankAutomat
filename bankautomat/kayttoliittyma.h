@@ -30,12 +30,15 @@ private slots:
     void showTime();
     void on_vaihda_clicked();
     void timerout();
+protected:
+    virtual void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     Ui::Kayttoliittyma *ui;
     QByteArray token;
     int valinta;
-    QString id;
+    QString id, fName, lName;
+    QTimer *pTimer;
 
 };
 

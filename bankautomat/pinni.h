@@ -31,7 +31,8 @@ public:
 private:
     void clickHandler(QString i);
     Pin_DLL * pPinDll;
-
+protected:
+    virtual void mouseMoveEvent(QMouseEvent *event) override;
 
 private slots:
     void on_B0_clicked();

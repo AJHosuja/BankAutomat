@@ -22,7 +22,11 @@ MainWindow::MainWindow(QWidget *parent)
         connect(pRest_api, SIGNAL(responsedata(QByteArray)),
                 this, SLOT(restApiData(QByteArray)));
 
+        pRfid_Interface = new Rfid_Interface;
+        connect(pRfid_Interface, SIGNAL(SendNumbertoEXE(QByteArray)),
+                this, SLOT(comData(QByteArray)));
 
+        setMouseTracking(true);
 }
 
 MainWindow::~MainWindow()
@@ -30,30 +34,30 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_avaapin_clicked()
+void MainWindow::comData(QByteArray data2)
 {
-
-    tunnus = ui->tunnus->text();
-    QString url = "http://restapigroup5tvt21spo1.herokuapp.com/login/" + tunnus;
+    disconnect(pRfid_Interface, SIGNAL(SendNumbertoEXE(QByteArray)),
+            this, SLOT(comData(QByteArray)));
+    qDebug() << data2;
+    data3 = data2;
+    QString url = "http://restapigroup5tvt21spo1.herokuapp.com/login/" + data2;
     //qDebug() << url;
     pRest_api->restapiL(url);
-
-
-
-
-
 }
 
 void MainWindow::restApiData(QByteArray data)
 {
 
     qDebug() << data;
-
+    QTextCodec *codec = QTextCodec::codecForName("KOI8-R");
+    tunnus = codec->toUnicode(data3);
+    connect(pRfid_Interface, SIGNAL(SendNumbertoEXE(QByteArray)),
+            this, SLOT(comData(QByteArray)));
     if (data=="true"){
-    this->hide();
+
     Pinni *pPinni = new Pinni(tunnus, this);
-    pPinni->exec();
+    pPinni->show();
+
     } else if (data=="false"){
         QMessageBox *msg = new QMessageBox(this);
         msg->setText("Kyseisellä kortilla ei ole tiliä!");
@@ -66,6 +70,7 @@ void MainWindow::restApiData(QByteArray data)
     }
 
 }
+
 
 
 

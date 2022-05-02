@@ -32,6 +32,9 @@ private slots:
     void kysymyshandlerDebit(QString ammount);
     void timerout();
 
+protected:
+    virtual void mouseMoveEvent(QMouseEvent *event) override;
+
 private:
 
     Ui::nosto *ui;

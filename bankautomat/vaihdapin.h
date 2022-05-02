@@ -39,6 +39,8 @@ private slots:
     void on_pyyhi_clicked();
 
     void on_tyhjenna_clicked();
+protected:
+    virtual void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     Ui::vaihdaPin *ui;

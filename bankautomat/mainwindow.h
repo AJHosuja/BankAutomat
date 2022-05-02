@@ -5,6 +5,7 @@
 #include "saldo.h"
 #include "rest_api_ddl.h"
 #include <QMainWindow>
+#include "rfid_interface.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,13 +20,15 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_avaapin_clicked();
     void restApiData(QByteArray data);
+    void comData(QByteArray data2);
 
 private:
     Ui::MainWindow *ui;
     Rest_api_ddl *pRest_api;
     saldo *pSaldo;
     QString tunnus;
+    QByteArray data3;
+    Rfid_Interface *pRfid_Interface;
 };
 #endif // MAINWINDOW_H
