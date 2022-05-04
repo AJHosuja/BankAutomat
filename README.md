@@ -1,3 +1,8 @@
-# group5
+# Group5
+Tämä GitHub repo- sisältää ohjelmisto sovellusprojekti kurssin vaatimusten mukaisen pankkiautomaatti simulaattorin.
 
-### pankkiautomaatti projekti
+### Tekijät
+* Antti-Jussi Virrankari
+* Tauno Koivisto
+* Jonna Raatikainen
+* Tuovi Partanen
